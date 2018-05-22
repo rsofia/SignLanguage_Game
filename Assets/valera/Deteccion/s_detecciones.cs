@@ -11,7 +11,6 @@ public class s_detecciones : MonoBehaviour {
         PosicionManoIzquierda = "";    
     }
 
-
     public void CambiarRotacionPalmaMano(string _posicion)
     {
         PosicionManoIzquierda = _posicion;

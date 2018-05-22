@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657892, g: 0.49641287, b: 0.5748173, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -1368,8 +1368,8 @@ GameObject:
   m_Component:
   - component: {fileID: 769803157}
   - component: {fileID: 769803156}
-  - component: {fileID: 769803158}
   - component: {fileID: 769803159}
+  - component: {fileID: 769803158}
   m_Layer: 0
   m_Name: Record
   m_TagString: Untagged
@@ -1385,10 +1385,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 769803155}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52ecc51dde7b65347a26db025fc66894, type: 3}
+  m_Script: {fileID: 11500000, guid: 6b8b4dedddc15914cbd260b5a1426864, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PosicionManoIzquierda: 
 --- !u!4 &769803157
 Transform:
   m_ObjectHideFlags: 0
@@ -1410,18 +1409,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 769803155}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 026b867f11794354dbd02c9e1ac51563, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &769803159
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 769803155}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 385a0abd21921054c9861061ee62f250, type: 3}
+  m_Script: {fileID: 11500000, guid: f3c480a9f038d6948963e118f06a5dcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   OnActivate:
@@ -1436,8 +1424,33 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   Period: 0.1
   HandModel: {fileID: 795409495}
-  EstadoPulgar: 
+  EstadoThumb: 0
+  EstadoIndex: 0
+  EstadoMiddle: 0
+  EstadoPinky: 0
+  EstadoRing: 0
   extendedCount: 0
+--- !u!114 &769803159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 769803155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24d5bc81d887eb64a8a3640793082179, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PosicionManoIzquierda: 
+  GuiaThumb: {fileID: 0}
+  GuiaIndex: {fileID: 0}
+  GuiaMiddle: {fileID: 0}
+  GuiaPinky: {fileID: 0}
+  GuiaRing: {fileID: 0}
+  GuiaAngPalamPulgar: {fileID: 0}
+  GuiaAngPalam00: {fileID: 0}
+  GuiaAngPalam01: {fileID: 0}
+  GuiaAngPalam02: {fileID: 0}
 --- !u!114 &795409495 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 11422472, guid: 23f2cce114628a448bfeaae171b4c0c0,
@@ -2482,7 +2495,7 @@ MonoBehaviour:
   OnActivate:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 769803158}
+      - m_Target: {fileID: 769803156}
         m_MethodName: CambiarRotacionPalmaMano
         m_Mode: 5
         m_Arguments:
@@ -2522,7 +2535,7 @@ MonoBehaviour:
   OnActivate:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 769803158}
+      - m_Target: {fileID: 769803156}
         m_MethodName: CambiarRotacionPalmaMano
         m_Mode: 5
         m_Arguments:
@@ -2562,7 +2575,7 @@ MonoBehaviour:
   OnActivate:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 769803158}
+      - m_Target: {fileID: 769803156}
         m_MethodName: CambiarRotacionPalmaMano
         m_Mode: 5
         m_Arguments:
@@ -2602,7 +2615,7 @@ MonoBehaviour:
   OnActivate:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 769803158}
+      - m_Target: {fileID: 769803156}
         m_MethodName: CambiarRotacionPalmaMano
         m_Mode: 5
         m_Arguments:
@@ -2642,7 +2655,7 @@ MonoBehaviour:
   OnActivate:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 769803158}
+      - m_Target: {fileID: 769803156}
         m_MethodName: CambiarRotacionPalmaMano
         m_Mode: 5
         m_Arguments:
