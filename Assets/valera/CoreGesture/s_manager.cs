@@ -18,9 +18,9 @@ public class s_manager : s_LeapHandGestureC
 	}
 
 
-    public override void fn_swipeLHdown()
-    {
-        base.fn_swipeLHdown();
-        Debug.Log("otra");
-    }
+    //public override void fn_swipeLHdown()
+    //{
+    //    base.fn_swipeLHdown();
+    //    Debug.Log("otra");
+    //}
 }
