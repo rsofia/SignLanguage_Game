@@ -32,7 +32,9 @@ public class SCR_AlmacenarGestos : SCR_GestureDetection
     public Dropdown dd_cat;
     public InputField inptFld_Significado;
     public Text txtError;
-    public Text txtExito;   
+    public Text txtExito;
+
+    Leap.Unity.CapsuleHand rightHand;
 
 
     private void Start()
@@ -64,7 +66,10 @@ public class SCR_AlmacenarGestos : SCR_GestureDetection
             {
                 category = dd_cat.value,
                 meaning = inptFld_Significado.text,
-                thumbRPos = new float[] { thumbRight.localEulerAngles.x, thumbRight.localEulerAngles.y, thumbRight.localEulerAngles.z,
+
+                
+
+            thumbRPos = new float[] { thumbRight.localEulerAngles.x, thumbRight.localEulerAngles.y, thumbRight.localEulerAngles.z,
                                                  thumbBonesR[0].localEulerAngles.x, thumbBonesR[0].localEulerAngles.y, thumbBonesR[0].localEulerAngles.z,
                                                  thumbBonesR[1].localEulerAngles.x, thumbBonesR[1].localEulerAngles.y, thumbBonesR[1].localEulerAngles.z,
                                                  thumbBonesR[2].localEulerAngles.x, thumbBonesR[2].localEulerAngles.y, thumbBonesR[2].localEulerAngles.z },
