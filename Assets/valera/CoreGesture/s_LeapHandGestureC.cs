@@ -192,6 +192,7 @@ public class s_LeapHandGestureC : MonoBehaviour {
     {
         while (true)
         {
+           // print("asd");
             v_HandRightActiva = RHand.activeInHierarchy;
             v_HandLeftActiva = LHand.activeInHierarchy;
 
