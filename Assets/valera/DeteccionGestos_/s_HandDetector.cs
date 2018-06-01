@@ -21,7 +21,9 @@ namespace Leap.Unity
         public int v_EstadoMiddle;
         public int v_EstadoPinky;
         public int v_EstadoRing;
+
         public int v_extendedCount = 0;
+
         public  string v_PosicionManoDerecha;
 
         private IEnumerator watcherCoroutine;
@@ -109,3 +111,4 @@ namespace Leap.Unity
 
     }
 }
+
