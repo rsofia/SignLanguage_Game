@@ -11,6 +11,8 @@ public class s_LeapHandGestureC : MonoBehaviour {
     public float v_Tolerancia = 0.03f;
     [Tooltip("Multiplica el valor de zoom")]
     public float multiplicadorZoom = 10.0f;
+    [Tooltip("utilizar 8 axis de deteccion == true -- false a 4 axis")]
+    public bool v_8axisDetector = false;
     //[Header("Direcciones de rotacion de manos")]
     string v_DirectionRight;
     string v_DirectionLeft;
@@ -138,6 +140,126 @@ public class s_LeapHandGestureC : MonoBehaviour {
         }
     }
 
+    private void fn_DetectorSwipe8axis(Vector3 _PosInicial, Vector3 _PosSalida, string _DirePalma, bool _direccion)
+    {
+        Checar = false;
+        if (_direccion)
+        {
+            switch (_DirePalma)
+            {
+                case "left":
+                    {
+                        if (_PosInicial.x > _PosSalida.x)
+                            fn_swipeRHleft();
+                    }
+                    break;
+                case "right":
+                    {
+                        if (_PosInicial.x < _PosSalida.x)
+                            fn_swipeRHright();
+                    }
+                    break;
+                case "down":
+                    {
+                        if (_PosInicial.y > _PosSalida.y)
+                            fn_swipeRHdown();
+                    }
+                    break;
+                case "up":
+                    {
+                        if (_PosInicial.y < _PosSalida.y)
+                            fn_swipeRHup();
+                    }
+                    break;
+
+                case "upR":
+                    {
+                        if (_PosInicial.x < _PosSalida.x && _PosInicial.y < _PosSalida.y)
+                            fn_swipeRHupRight();
+                    }
+                    break;
+                case "upL":
+                    {
+                        if (_PosInicial.x > _PosSalida.x && _PosInicial.y < _PosSalida.y)
+                            fn_swipeRHUpLeft();
+                    }
+                    break;
+                case "downR":
+                    {
+                        if (_PosInicial.x < _PosSalida.x && _PosInicial.y > _PosSalida.y)
+                            fn_swipeRHrightDown();
+                    }
+                    break;
+                case "downL":
+                    {
+                        if (_PosInicial.x > _PosSalida.x && _PosInicial.y > _PosSalida.y)
+                            fn_swipeRHleftDown();
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+        else
+        {
+            switch (_DirePalma)
+            {
+                case "left":
+                    {
+                        if (_PosInicial.x > _PosSalida.x)
+                            fn_swipeLHleft();
+                    }
+                    break;
+                case "right":
+                    {
+                        if (_PosInicial.x < _PosSalida.x)
+                            fn_swipeLHright();
+                    }
+                    break;
+                case "down":
+                    {
+                        if (_PosInicial.y > _PosSalida.y)
+                            fn_swipeLHdown();
+                    }
+                    break;
+                case "up":
+                    {
+                        if (_PosInicial.y < _PosSalida.y)
+                            fn_swipeLHup();
+                    }
+                    break;
+
+                case "upR":
+                    {
+                        if (_PosInicial.x < _PosSalida.x && _PosInicial.y < _PosSalida.y)
+                            fn_swipeLHupRight();
+
+                    }
+                    break;
+                case "upL":
+                    {
+                        if (_PosInicial.x > _PosSalida.x && _PosInicial.y < _PosSalida.y)
+                            fn_swipeLHUpLeft();
+                    }
+                    break;
+                case "downR":
+                    {
+                        if (_PosInicial.x < _PosSalida.x && _PosInicial.y > _PosSalida.y)
+                            fn_swipeLHrightDown();
+                    }
+                    break;
+                case "downL":
+                    {
+                        if (_PosInicial.x > _PosSalida.x && _PosInicial.y > _PosSalida.y)
+                            fn_swipeLHleftDown();
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
     /// <summary>
     /// Detecta la direccion de movimiento de las manos para gestos de doble mano
     /// </summary>
@@ -192,22 +314,34 @@ public class s_LeapHandGestureC : MonoBehaviour {
     {
         while (true)
         {
+           // print("asd");
             v_HandRightActiva = RHand.activeInHierarchy;
             v_HandLeftActiva = LHand.activeInHierarchy;
 
             if (v_HandRightActiva == true && v_HandLeftActiva == true) //Dos manos activas
             {
                 Checar = false;
-                if(Dete2Hands)
+                if (Dete2Hands)
                     fn_DetectorDobleHanGesture();
             }
             else // 1 de las 2 manos activas
             {
                 Dete2Hands = false;
                 if (v_HandRightActiva && Checar == true)
-                    fn_DetectorSwipe4axis(v_Inicial, v_Salida, v_DirectionRight, true);
+                {
+                    if (v_8axisDetector)
+                        fn_DetectorSwipe8axis(v_Inicial, v_Salida, v_DirectionRight, true);
+                    else
+                        fn_DetectorSwipe4axis(v_Inicial, v_Salida, v_DirectionRight, true);
+
+                }
                 if (v_HandLeftActiva && Checar == true)
-                    fn_DetectorSwipe4axis(v_Inicial, v_Salida, v_DirectionLeft, false);
+                {
+                    if (v_8axisDetector)
+                        fn_DetectorSwipe8axis(v_Inicial, v_Salida, v_DirectionLeft, false);
+                    else
+                        fn_DetectorSwipe4axis(v_Inicial, v_Salida, v_DirectionLeft, false);
+                }
             }
 
 
@@ -310,6 +444,68 @@ public class s_LeapHandGestureC : MonoBehaviour {
     {
         Debug.Log("Mano derecha swipe up");
     }
+
+    ///////////////////////// swipe 8axis
+
+
+    /// <summary>
+    /// Funcion de mano derecha swipe left Down
+    /// </summary>
+    public virtual void fn_swipeRHleftDown()
+    {
+        Debug.Log("Mano derecha swipe left Down");
+    }
+    /// <summary>
+    /// Funcion de mano derecha swipe right Down
+    /// </summary>
+    public virtual void fn_swipeRHrightDown()
+    {
+        Debug.Log("Mano derecha swipe right Down");
+    }
+    /// <summary>
+    /// Funcion de mano derecha swipe Up left
+    /// </summary>
+    public virtual void fn_swipeRHUpLeft()
+    {
+        Debug.Log("Mano derecha swipe Up left");
+    }
+    /// <summary>
+    /// Funcion de mano derecha swipe up Right
+    /// </summary>
+    public virtual void fn_swipeRHupRight()
+    {
+        Debug.Log("Mano derecha swipe up Right");
+    }
+
+    /// <summary>
+    /// Funcion de mano izquierda swipe left Down
+    /// </summary>
+    public virtual void fn_swipeLHleftDown()
+    {
+        Debug.Log("Mano izquierda swipe left Down");
+    }
+    /// <summary>
+    /// Funcion de mano izquierda swipe right Down
+    /// </summary>
+    public virtual void fn_swipeLHrightDown()
+    {
+        Debug.Log("Mano izquierda swipe right Down");
+    }
+    /// <summary>
+    /// Funcion de mano izquierda swipe Up left
+    /// </summary>
+    public virtual void fn_swipeLHUpLeft()
+    {
+        Debug.Log("Mano izquierda swipe Up left");
+    }
+    /// <summary>
+    /// Funcion de mano izquierda swipe up Right
+    /// </summary>
+    public virtual void fn_swipeLHupRight()
+    {
+        Debug.Log("Mano izquierda swipe up Right");
+    }
+
     /// <summary>
     /// Funcion a doble mano para detectar zoom +
     /// </summary>
