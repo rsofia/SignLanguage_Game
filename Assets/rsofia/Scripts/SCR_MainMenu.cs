@@ -54,6 +54,13 @@ public class SCR_MainMenu : MonoBehaviour {
         instructionsPanel.SetActive(false);
     }
 
+    public void OpenLevelSelection()
+    {
+        Debug.Log("Abriendo seleccion de niveles");
+        FindObjectOfType<SCR_Loading>().LoadScene("LevelSelection");
+    }
+
+
     public void ExitGame()
     {
         Application.Quit();

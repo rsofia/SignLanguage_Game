@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using System.Security.Cryptography;
 using System.Text;
 using System;
+using UnityEngine.Networking;
 
 public class SCR_CreateUser : MonoBehaviour {
 
@@ -34,8 +35,6 @@ public class SCR_CreateUser : MonoBehaviour {
     public Text txtDisplayErrors;
     
 
-    private string mySalt = "ASGNE3C8~U2018C"; // NEVER CHANGE THIS. THIS WILL HELP MAKE THE HASH OF THE PASSWORDS
-
     //Para indicar que tan fuerte es la contrasenia
     private enum SECURITYSTATES
     {
@@ -55,6 +54,7 @@ public class SCR_CreateUser : MonoBehaviour {
         imgPasswordsMatch.SetActive(false);
         btnSubmit.interactable = false;
         passwordField.text = "";
+        emailField.text = "";
         confirmPasswordField.text = "";
         txtDisplayErrors.text = "";
         userField.text = "";
@@ -160,6 +160,21 @@ public class SCR_CreateUser : MonoBehaviour {
         }
     }
 
+    public void SelectPasswordField()
+    {
+        passwordField.Select();
+    }
+
+    public void SelectEmailField()
+    {
+        emailField.Select();
+    }
+
+    public void SelectToggleField()
+    {
+        isDeaf.Select();
+    }
+
     //Funcion que selecciona el input field con el que se confirma la contrasenia
     public void SelectConfirmPassword()
     {
@@ -188,36 +203,79 @@ public class SCR_CreateUser : MonoBehaviour {
 
         if (doPasswordsMatch)
         {
-           
 
-            byte[] bytes = Encoding.UTF8.GetBytes(mySalt + passwordField.text);
-            SHA256Managed hashstring = new SHA256Managed();
-            byte[] hash = hashstring.ComputeHash(bytes);
-            string passwordHash = string.Empty;
-            foreach (byte x in hash)
-            {
-                passwordHash += String.Format("{0:x2}", x);
-            }
-            Debug.Log("My Passwords: " + passwordField.text + " My Hash: " + passwordHash);
+            string passwordHash = HashPassword(passwordField.text);
+            
 
-            StartCoroutine(SendPasswordHashToDB(passwordHash));
+            StartCoroutine(SendPasswordHashToDB(passwordHash, userField.text, emailField.text, (int)avatar.myAvatar, isDeaf.isOn));
         }
         else
             txtDisplayErrors.text = "Las contraseñas deben coincidir";
     }
 
-    #region SEND TO DATABASE//THIS IS STILL UNDER CONSTRUCTION
-    IEnumerator SendPasswordHashToDB(string hash)
+    public static string HashPassword(string _password)
     {
+         string mySalt = "ASGNE3C8~U2018C"; // NEVER CHANGE THIS. THIS WILL HELP MAKE THE HASH OF THE PASSWORDS
+        byte[] bytes = Encoding.UTF8.GetBytes(mySalt + _password);
+        SHA256Managed hashstring = new SHA256Managed();
+        byte[] hash = hashstring.ComputeHash(bytes);
+        string passwordHash = string.Empty;
+        foreach (byte x in hash)
+        {
+            passwordHash += String.Format("{0:x2}", x);
+        }
+
+        Debug.Log("My Passwords: " + _password + " My Hash: " + passwordHash);
+        return passwordHash;
+    }
+
+    #region SEND TO DATABASE//THIS IS STILL UNDER CONSTRUCTION
+    IEnumerator SendPasswordHashToDB(string _hash, string _username, string _email, int _avatar, bool _isDeaf)
+    {
+
         WWWForm form = new WWWForm();
-        form.AddField("passwordHash", hash);
+        form.AddField("_passwordHash", _hash);
+        form.AddField("_username", _username);
+        form.AddField("_email", _email);
+        form.AddField("_avatar", _avatar);
+        if (_isDeaf)
+            form.AddField("_isDeaf", 1);
+        else
+            form.AddField("_isDeaf", 0);
 
-        WWW www = new WWW("http://google.com");
-        yield return www;
+        using (UnityWebRequest webRequest = UnityWebRequest.Post(ServerInfo.host+"Unity_CreateUser.php", form))
+        {
 
-        
-        //Open Login
-        mainMenuManager.OpenLogin();
+            yield return webRequest.SendWebRequest();
+
+            if(webRequest.isHttpError || webRequest.isNetworkError)
+            {
+                Debug.Log("Error");
+                txtDisplayErrors.text = "Error en la conexión. Asegúrese de estar conectado a internet.";
+            }
+            else if(string.IsNullOrEmpty(webRequest.downloadHandler.text))
+            {
+                Debug.Log("Didn't get what i wanted");
+                txtDisplayErrors.text = "Hubo un error, intente de nuevo.";
+            }
+            else
+            {
+                int result = 5;
+                int.TryParse(webRequest.downloadHandler.text, out result);
+                if(result == 0)
+                {
+                    txtDisplayErrors.text = "Hubo un error, intente de nuevo.";
+                }
+                else if(result == 1)
+                {
+                    mainMenuManager.OpenLogin();
+                }
+            }
+
+            
+        }
+
+        Debug.Log("I am here");
     }
     #endregion
 }
