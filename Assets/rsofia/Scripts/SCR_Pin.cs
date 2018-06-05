@@ -40,9 +40,11 @@ public class SCR_Pin : MonoBehaviour {
 
     public void SetCurrentLevel(SCR_Level _level)
     {
+        currentLevel.HideStars();
         currentLevel = _level;
+        currentLevel.ShowStars();
         txtLevelSelected.text = currentLevel.sceneToLoad;
-        transform.position = currentLevel.transform.position;
+        transform.position = new Vector3(currentLevel.transform.position.x, currentLevel.transform.position.y+1, currentLevel.transform.position.z);
     }
 
 }

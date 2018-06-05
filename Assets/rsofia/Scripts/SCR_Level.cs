@@ -21,6 +21,10 @@ public class SCR_Level : MonoBehaviour {
 
     public string sceneToLoad = "";
 
+    [Header("Level Progress")]
+    public SpriteRenderer[] stars;
+    public int progress = 0;
+    
     private void Start()
     {
         if (isBlocked)
@@ -75,4 +79,23 @@ public class SCR_Level : MonoBehaviour {
         Gizmos.color = Color.blue;
         Gizmos.DrawLine(transform.position, pin.transform.position);
     }
+
+    public void ShowStars()
+    {
+        for(int i = 0; i < stars.Length; i++)
+        {
+            stars[i].gameObject.SetActive(true);
+            if (i < progress)
+                stars[i].color = Color.yellow;            
+        }
+    }
+
+    public void HideStars()
+    {
+        foreach(SpriteRenderer sprt in stars)
+        {
+            sprt.gameObject.SetActive(false);
+        }
+    }
+    
 }
