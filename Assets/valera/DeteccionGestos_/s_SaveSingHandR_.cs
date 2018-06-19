@@ -83,6 +83,8 @@ public class s_SaveSingHandR_ : MonoBehaviour {
             bf.Serialize(file, tmp[i].transform.rotation.eulerAngles.z);
 
         }
+
+
         file.Close();
 
         Debug.Log("Archivo guardado");
