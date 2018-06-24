@@ -21,56 +21,90 @@ namespace Leap.Unity
         _20Times
     }
 
-    [SerializeField]
+    [System.Serializable]
     public class HandRecord
     {
+        [SerializeField]
         public bool v_ManoActiva;
-
+        [SerializeField]
         public string v_RotacionPalma;
 
+        [SerializeField]
         public int v_NumeroDeTirajes;
 
-        public int EstadoThumb = 0;
-        public int EstadoIndex = 0;
-        public int EstadoMiddle = 0;
-        public int EstadoPinky = 0;
-        public int EstadoRing = 0;
+        [SerializeField]
+        public int v_EstadoThumb;
+        [SerializeField]
+        public int v_EstadoIndex;
+        [SerializeField]
+        public int v_EstadoMiddle;
+        [SerializeField]
+        public int v_EstadoPinky;
+        [SerializeField]
+        public int v_EstadoRing;
 
-        public int extendedCount = 0;
+        [SerializeField]
+        public int v_DedosExtendidos;
 
-        public Vector3[,] BonesThumb;
-        public Vector3[,] BonesIndex;
-        public Vector3[,] BonesMiddle;
-        public Vector3[,] BonesPinky;
-        public Vector3[,] BonesRing;
+        [SerializeField]
+        public Vector3[,] v_PosBonesThumb;
+        [SerializeField]
+        public Vector3[,] v_PosBonesIndex;
+        [SerializeField]
+        public Vector3[,] v_PosBonesMiddle;
+        [SerializeField]
+        public Vector3[,] v_PosBonesPinky;
+        [SerializeField]
+        public Vector3[,] v_PosBonesRing;
 
-        public GameObject[] brazo;
-        public GameObject[] palma;
+        [SerializeField]
+        public Vector3[,] v_RotBonesThumb;
+        [SerializeField]
+        public Vector3[,] v_RotBonesIndex;
+        [SerializeField]
+        public Vector3[,] v_RotBonesMiddle;
+        [SerializeField]
+        public Vector3[,] v_RotBonesPinky;
+        [SerializeField]
+        public Vector3[,] v_RotBonesRing;
 
-        public GameObject[] GuiaThumb;
-        public GameObject[] GuiaIndex;
-        public GameObject[] GuiaMiddle;
-        public GameObject[] GuiaPinky;
-        public GameObject[] GuiaRing;
+        [SerializeField]
+        public Vector3[,] v_PosRotBrazo;
+        [SerializeField]
+        public Vector3[,] v_PosRotPalma;
 
-        public void inicializar(int _numeroTiraje)
+
+        public HandRecord(int _numeroTiraje)
         {
-            BonesThumb = new Vector3[3,_numeroTiraje];
-            BonesIndex = new Vector3[3,_numeroTiraje];
-            BonesMiddle = new Vector3[3,_numeroTiraje];
-            BonesPinky = new Vector3[3,_numeroTiraje];
-            BonesRing = new Vector3[3,_numeroTiraje];
+            v_ManoActiva = false;
 
-            brazo = new GameObject[_numeroTiraje];
-            palma = new GameObject[_numeroTiraje];
+            v_RotacionPalma = "";
 
-            GuiaThumb = new GameObject[_numeroTiraje];
-            GuiaIndex = new GameObject[_numeroTiraje];
-            GuiaMiddle = new GameObject[_numeroTiraje];
-            GuiaPinky = new GameObject[_numeroTiraje];
-            GuiaRing = new GameObject[_numeroTiraje];
+            v_NumeroDeTirajes = _numeroTiraje;
+
+            v_EstadoThumb     = 0;
+            v_EstadoIndex     = 0;
+            v_EstadoMiddle    = 0;
+            v_EstadoPinky     = 0;
+            v_EstadoRing      = 0;
+            v_DedosExtendidos = 0;
+
+            v_PosBonesThumb  = new Vector3[3, v_NumeroDeTirajes];
+            v_PosBonesIndex  = new Vector3[3, v_NumeroDeTirajes];
+            v_PosBonesMiddle = new Vector3[3, v_NumeroDeTirajes];
+            v_PosBonesPinky  = new Vector3[3, v_NumeroDeTirajes];
+            v_PosBonesRing   = new Vector3[3, v_NumeroDeTirajes];
+
+            v_RotBonesThumb  = new Vector3[3, v_NumeroDeTirajes];
+            v_RotBonesIndex  = new Vector3[3, v_NumeroDeTirajes];
+            v_RotBonesMiddle = new Vector3[3, v_NumeroDeTirajes];
+            v_RotBonesPinky  = new Vector3[3, v_NumeroDeTirajes];
+            v_RotBonesRing   = new Vector3[3, v_NumeroDeTirajes];
+
+            v_PosRotBrazo    = new Vector3[2, v_NumeroDeTirajes];
+            v_PosRotBrazo    = new Vector3[2, v_NumeroDeTirajes];
+
         }
-
 
     }
 
@@ -86,7 +120,8 @@ namespace Leap.Unity
 
         [Header("Requerimientos")]
         [Tooltip("The hand model to watch. Set automatically if detector is on a hand.")]
-        public HandModelBase HandModel = null;
+        public HandModelBase v_HandModelDerecha = null;
+        public HandModelBase v_HandModelIzquierda = null;
 
 
         [Header("Estados")]
@@ -94,9 +129,10 @@ namespace Leap.Unity
         public bool v_ManoDerechaActiva;
 
         [Header("Datos a Guardar")]
-        public HandRecord v_ManoIzquierda;
-        public HandRecord v_ManoDerecha;
+        public HandRecord v_ManoIzquierda = new HandRecord(1);
+        public HandRecord v_ManoDerecha = new HandRecord(1);
 
+        [Header("Datos de Visualizacion")]
         public string v_PosicionManoIzquierda;
         public string v_PosicionManoDerecha;
 
@@ -189,37 +225,60 @@ namespace Leap.Unity
 
             while (true)
             {
-                if (HandModel != null && HandModel.IsTracked)
-                {
-                    if(HandModel.GetLeapHand().IsLeft)
-                        ManoIzquierda = HandModel.GetLeapHand();
-                    if(HandModel.GetLeapHand().IsRight)
-                        ManoDerecha = HandModel.GetLeapHand();
+                if (v_HandModelDerecha != null && v_HandModelDerecha.IsTracked)
+                { 
+                    if(v_HandModelDerecha.GetLeapHand().IsRight)
+                        ManoDerecha = v_HandModelDerecha.GetLeapHand();
 
-                    if (HandModel.IsTracked)
+                    if (v_HandModelDerecha.IsTracked)
                     {
-                        v_NumeroDeDedosActivosHIzquierda = 0;
                         v_NumeroDeDedosActivosHDerecha = 0;
                         for (int f = 0; f < 5; f++)
                         {
-
-                            if (ManoIzquierda.Fingers[f].IsExtended)
-                            {
-                                v_NumeroDeDedosActivosHIzquierda++;
-                            }
                             if (ManoDerecha.Fingers[f].IsExtended)
                             {
                                 v_NumeroDeDedosActivosHDerecha++;
                             }
                         }
+
+                        v_EstadoThumbDerecho = fn_fingerState(ManoDerecha.Fingers[0]);
+                        v_EstadoIndexDerecho = fn_fingerState(ManoDerecha.Fingers[1]);
+                        v_EstadoMiddleDerecho = fn_fingerState(ManoDerecha.Fingers[2]);
+                        v_EstadoPinkyDerecho = fn_fingerState(ManoDerecha.Fingers[4]);
+                        v_EstadoRingDerecho = fn_fingerState(ManoDerecha.Fingers[3]);
                     }
                 }
                 else
                 {
                     v_EstadoIndexDerecho = v_EstadoMiddleDerecho = v_EstadoPinkyDerecho = v_EstadoRingDerecho = v_EstadoThumbDerecho = 0;
-                    v_EstadoPinkyIzquierdo = v_EstadoMiddleIzquierdo = v_EstadoPinkyIzquierdo = v_EstadoRingIzquierdo = v_EstadoThumbIzquierdo = 0;
+                    v_NumeroDeDedosActivosHDerecha = 0;
+                }
+                if (v_HandModelIzquierda != null && v_HandModelIzquierda.IsTracked)
+                {
+                    if (v_HandModelIzquierda.GetLeapHand().IsLeft)
+                        ManoIzquierda = v_HandModelIzquierda.GetLeapHand();
 
-                    v_NumeroDeDedosActivosHIzquierda = v_NumeroDeDedosActivosHDerecha = 0;
+                    if (v_HandModelIzquierda.IsTracked)
+                    {
+                        v_NumeroDeDedosActivosHIzquierda = 0;
+                        for (int f = 0; f < 5; f++)
+                        {
+                            if (ManoIzquierda.Fingers[f].IsExtended)
+                            {
+                                v_NumeroDeDedosActivosHIzquierda++;
+                            }
+                        }
+                        v_EstadoThumbIzquierdo = fn_fingerState(ManoIzquierda.Fingers[0]);
+                        v_EstadoIndexIzquierdo = fn_fingerState(ManoIzquierda.Fingers[1]);
+                        v_EstadoMiddleIzquierdo = fn_fingerState(ManoIzquierda.Fingers[2]);
+                        v_EstadoPinkyIzquierdo = fn_fingerState(ManoIzquierda.Fingers[4]);
+                        v_EstadoRingIzquierdo = fn_fingerState(ManoIzquierda.Fingers[3]);
+                    }
+                }
+                else
+                {
+                    v_EstadoPinkyIzquierdo = v_EstadoMiddleIzquierdo = v_EstadoIndexIzquierdo = v_EstadoRingIzquierdo = v_EstadoThumbIzquierdo = 0;
+                    v_NumeroDeDedosActivosHIzquierda = 0;
                 }
                 yield return new WaitForSeconds(v_periodoActualizacion);
             }
