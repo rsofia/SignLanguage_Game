@@ -226,8 +226,10 @@ namespace Leap.Unity
             while (true)
             {
                 if (v_HandModelDerecha != null && v_HandModelDerecha.IsTracked)
-                { 
-                    if(v_HandModelDerecha.GetLeapHand().IsRight)
+                {
+                    v_ManoDerechaActiva = true;
+
+                    if (v_HandModelDerecha.GetLeapHand().IsRight)
                         ManoDerecha = v_HandModelDerecha.GetLeapHand();
 
                     if (v_HandModelDerecha.IsTracked)
@@ -252,9 +254,12 @@ namespace Leap.Unity
                 {
                     v_EstadoIndexDerecho = v_EstadoMiddleDerecho = v_EstadoPinkyDerecho = v_EstadoRingDerecho = v_EstadoThumbDerecho = 0;
                     v_NumeroDeDedosActivosHDerecha = 0;
+                    v_ManoDerechaActiva = false;
+                    v_PosicionManoDerecha = "";
                 }
                 if (v_HandModelIzquierda != null && v_HandModelIzquierda.IsTracked)
                 {
+                    v_ManoIzquierdaActiva = true;
                     if (v_HandModelIzquierda.GetLeapHand().IsLeft)
                         ManoIzquierda = v_HandModelIzquierda.GetLeapHand();
 
@@ -279,6 +284,9 @@ namespace Leap.Unity
                 {
                     v_EstadoPinkyIzquierdo = v_EstadoMiddleIzquierdo = v_EstadoIndexIzquierdo = v_EstadoRingIzquierdo = v_EstadoThumbIzquierdo = 0;
                     v_NumeroDeDedosActivosHIzquierda = 0;
+                    v_ManoIzquierdaActiva = false;
+                    v_PosicionManoIzquierda = "";
+
                 }
                 yield return new WaitForSeconds(v_periodoActualizacion);
             }
