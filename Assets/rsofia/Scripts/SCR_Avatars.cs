@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public enum AVATAR
 {
-    DEFAULT,
     ONE,
     TWO,
     THREE

@@ -93,6 +93,7 @@ public class SCR_Login : MonoBehaviour {
                 }
                 else if (result == 1)
                 {
+                    SCR_LoadUserData.currentUsername = userField.text;
                     mainMenuManager.OpenLevelSelection();
                 }
             }

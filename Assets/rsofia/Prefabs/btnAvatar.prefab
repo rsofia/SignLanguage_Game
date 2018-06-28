@@ -89,10 +89,9 @@ MonoBehaviour:
   selectAvatar: {fileID: 0}
   imgAvatar: {fileID: 114989729990088028}
   spritesForAvatars:
-  - {fileID: 21300000, guid: cc68d6f2229c26c4ab4657316e670068, type: 3}
+  - {fileID: 21300000, guid: 6a27e1c674cabd64e892afa64c56dc8c, type: 3}
+  - {fileID: 21300000, guid: 980aadcaa37c675408376c753ea3fbb8, type: 3}
   - {fileID: 21300000, guid: 76ba32c8edd2e1d45a1bc8f45cb6af6c, type: 3}
-  - {fileID: 21300000, guid: 19283408a3bca81409251bcf88eb3993, type: 3}
-  - {fileID: 21300000, guid: d91cd34cd2505134dbd11ccaddd2eb91, type: 3}
   addListener: 1
 --- !u!114 &114753000529396942
 MonoBehaviour:

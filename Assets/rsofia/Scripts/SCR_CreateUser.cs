@@ -215,7 +215,7 @@ public class SCR_CreateUser : MonoBehaviour {
 
     public static string HashPassword(string _password)
     {
-         string mySalt = "ASGNE3C8~U2018C"; // NEVER CHANGE THIS. THIS WILL HELP MAKE THE HASH OF THE PASSWORDS
+        string mySalt = "ASGNE3C8~U2018C"; // NEVER CHANGE THIS. THIS WILL HELP MAKE THE HASH OF THE PASSWORDS
         byte[] bytes = Encoding.UTF8.GetBytes(mySalt + _password);
         SHA256Managed hashstring = new SHA256Managed();
         byte[] hash = hashstring.ComputeHash(bytes);
@@ -260,7 +260,7 @@ public class SCR_CreateUser : MonoBehaviour {
             }
             else
             {
-                int result = 5;
+                int result = 0;
                 int.TryParse(webRequest.downloadHandler.text, out result);
                 if(result == 0)
                 {
