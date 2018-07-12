@@ -16,6 +16,9 @@ public class SCR_Login : MonoBehaviour {
     [Tooltip("Boton que enviara el login")]
     public Button btnSubmit;
 
+    [Tooltip("Prender este boton si no tienen acceso al login / Modo para testear")]
+    public bool testMode = false;
+
     private void Start()
     {
         ClearFields();
@@ -44,6 +47,13 @@ public class SCR_Login : MonoBehaviour {
 
     public void OnSubmitClicked()
     {
+        if(testMode)
+        {
+            SCR_LoadUserData.currentUsername = "DEBUGGER";
+            mainMenuManager.OpenGameSelection();
+            return;
+        }
+
         //hash password
         if(string.IsNullOrEmpty(userField.text))
         {
@@ -94,7 +104,7 @@ public class SCR_Login : MonoBehaviour {
                 else if (result == 1)
                 {
                     SCR_LoadUserData.currentUsername = userField.text;
-                    mainMenuManager.OpenLevelSelection();
+                    mainMenuManager.OpenGameSelection();
                 }
             }
         }

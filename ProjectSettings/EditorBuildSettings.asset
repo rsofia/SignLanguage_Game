@@ -9,5 +9,8 @@ EditorBuildSettings:
     path: Assets/rsofia/Scenes/MainMenu.unity
     guid: 7820739d8c13acf4ba7bcbd5bce35925
   - enabled: 1
+    path: Assets/rsofia/Scenes/GameSelection.unity
+    guid: 8b8d9e3a2a0ace946aaf0aa11f1193f6
+  - enabled: 1
     path: Assets/rsofia/Scenes/LevelSelection.unity
     guid: 7e862531d3fa40545a0737a1ba958b98

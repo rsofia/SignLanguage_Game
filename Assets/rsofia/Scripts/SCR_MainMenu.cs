@@ -6,11 +6,13 @@ public class SCR_MainMenu : MonoBehaviour {
 
     public GameObject loginPanel;
     public GameObject newUserPanel;
-    public GameObject warningExitPanel;
     public GameObject instructionsPanel;
+    public SCR_QuitGame quitGame;
 
     private void Start()
     {
+        if (quitGame == null)
+            FindObjectOfType<SCR_QuitGame>();
         OpenLogin();
     }
 
@@ -30,19 +32,10 @@ public class SCR_MainMenu : MonoBehaviour {
     {
         loginPanel.SetActive(false);
         newUserPanel.SetActive(false);
-        warningExitPanel.SetActive(false);
+        quitGame.warningExitPanel.SetActive(false);
         instructionsPanel.SetActive(false);
-    }
-    
-    public void OpenQuitPanel()
-    {
-        warningExitPanel.SetActive(true);
-    }
-
-    public void CancelQuit()
-    {
-        warningExitPanel.SetActive(false);
-    }
+    }    
+  
 
     public void ShowInstructions()
     {
@@ -54,15 +47,15 @@ public class SCR_MainMenu : MonoBehaviour {
         instructionsPanel.SetActive(false);
     }
 
+    public void OpenGameSelection()
+    {
+        FindObjectOfType<SCR_Loading>().LoadScene("GameSelection");
+    }
+
     public void OpenLevelSelection()
     {
         Debug.Log("Abriendo seleccion de niveles");
         FindObjectOfType<SCR_Loading>().LoadScene("LevelSelection");
     }
 
-
-    public void ExitGame()
-    {
-        Application.Quit();
-    }
 }
