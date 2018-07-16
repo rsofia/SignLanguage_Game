@@ -209,7 +209,6 @@ namespace Leap.Unity
 
 
 
-            Debug.Log(v_NumeroDeTirajes);
         }
 
         public void ClearClass(int _numeroTiraje)
@@ -443,7 +442,7 @@ namespace Leap.Unity
 
             for (int i = 0; i < _numeroTirajes; i++)
             {
-                Debug.Log("Tiraje"+i);
+                Debug.Log("> Tiraje"+i);
                 if(v_ManoIzquierdaActiva)
                 {
                     v_ManoIzquierda.v_ManoActiva = true;
@@ -527,8 +526,7 @@ namespace Leap.Unity
                     v_ManoDerecha.v_ManoActiva = true;
 
                     v_ManoDerecha.v_RotacionPalma[i] = v_PosicionManoDerecha;
-                    Debug.Log(v_ManoDerecha.v_RotacionPalma);
-                    Debug.Log(v_ManoDerecha);
+                
                     v_ManoDerecha.v_EstadoThumb[i] = v_EstadoThumbDerecho;
                     v_ManoDerecha.v_EstadoIndex[i] = v_EstadoIndexDerecho;
                     v_ManoDerecha.v_EstadoMiddle[i] = v_EstadoMiddleDerecho;
@@ -595,6 +593,7 @@ namespace Leap.Unity
 
                 }
 
+                Debug.Log(">Termino el Tiraje " + i);
 
                 yield return new WaitForSeconds(tiempoTMp);
             }
