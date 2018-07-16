@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 //Agregar metodos para lectura de archivos
-//Limpieza de clases
+
 
 
 public class s_ManagerLoadSign : MonoBehaviour {
@@ -13,7 +13,7 @@ public class s_ManagerLoadSign : MonoBehaviour {
         [SerializeField]
         public bool v_ManoActiva;
         [SerializeField]
-        public string v_RotacionPalma;
+        public string[] v_RotacionPalma;
 
         [SerializeField]
         public int v_NumeroDeTirajes;
@@ -124,7 +124,6 @@ public class s_ManagerLoadSign : MonoBehaviour {
         {
             v_ManoActiva = false;
 
-            v_RotacionPalma = "";
 
             v_NumeroDeTirajes = _numeroTiraje;
 
@@ -135,6 +134,7 @@ public class s_ManagerLoadSign : MonoBehaviour {
             v_EstadoPinky = new int[v_NumeroDeTirajes];
             v_EstadoRing = new int[v_NumeroDeTirajes];
             v_DedosExtendidos = new int[v_NumeroDeTirajes];
+            v_RotacionPalma = new string[v_NumeroDeTirajes];
 
             for (int i = 0; i < v_NumeroDeTirajes; i++)
             {
@@ -144,6 +144,7 @@ public class s_ManagerLoadSign : MonoBehaviour {
                 v_EstadoPinky[i] = 0;
                 v_EstadoRing[i] = 0;
                 v_DedosExtendidos[i] = 0;
+                v_RotacionPalma[i] = "";
             }
 
             v_PosBonesThumb0 = new Vector3[v_NumeroDeTirajes];

@@ -5,8 +5,6 @@ using Leap.Unity.Attributes;
 using System.IO;
 using UnityEngine.UI;
 
-//Falta metodo para limpiar las clases 
-//Metodo para cambiar tirajes y tiempos real tieme
 namespace Leap.Unity
 {
     public enum TiemposDisponibles
@@ -31,7 +29,7 @@ namespace Leap.Unity
         [SerializeField]
         public bool v_ManoActiva;
         [SerializeField]
-        public string v_RotacionPalma;
+        public string [] v_RotacionPalma;
 
         [SerializeField]
         public int v_NumeroDeTirajes;
@@ -142,8 +140,6 @@ namespace Leap.Unity
         {
             v_ManoActiva = false;
 
-            v_RotacionPalma = "";
-
             v_NumeroDeTirajes = _numeroTiraje;
 
 
@@ -154,6 +150,8 @@ namespace Leap.Unity
             v_EstadoRing = new int[v_NumeroDeTirajes];
             v_DedosExtendidos = new int[v_NumeroDeTirajes];
 
+            v_RotacionPalma = new string[v_NumeroDeTirajes];
+
             for (int i = 0; i < v_NumeroDeTirajes; i++)
             {
                 v_EstadoThumb[i] = 0;
@@ -162,6 +160,8 @@ namespace Leap.Unity
                 v_EstadoPinky[i] = 0;
                 v_EstadoRing[i] = 0;
                 v_DedosExtendidos[i] = 0;
+                v_RotacionPalma[i] = "";
+
             }
 
             v_PosBonesThumb0  = new Vector3[v_NumeroDeTirajes];
@@ -212,6 +212,75 @@ namespace Leap.Unity
             Debug.Log(v_NumeroDeTirajes);
         }
 
+        public void ClearClass(int _numeroTiraje)
+        {
+            v_ManoActiva = false;
+
+            v_NumeroDeTirajes = _numeroTiraje;
+
+
+            v_EstadoThumb = new int[v_NumeroDeTirajes];
+            v_EstadoIndex = new int[v_NumeroDeTirajes];
+            v_EstadoMiddle = new int[v_NumeroDeTirajes];
+            v_EstadoPinky = new int[v_NumeroDeTirajes];
+            v_EstadoRing = new int[v_NumeroDeTirajes];
+            v_DedosExtendidos = new int[v_NumeroDeTirajes];
+
+            for (int i = 0; i < v_NumeroDeTirajes; i++)
+            {
+                v_EstadoThumb[i] = 0;
+                v_EstadoIndex[i] = 0;
+                v_EstadoMiddle[i] = 0;
+                v_EstadoPinky[i] = 0;
+                v_EstadoRing[i] = 0;
+                v_DedosExtendidos[i] = 0;
+                v_RotacionPalma[i] = "";
+
+            }
+
+            v_PosBonesThumb0 = new Vector3[v_NumeroDeTirajes];
+            v_PosBonesIndex0 = new Vector3[v_NumeroDeTirajes];
+            v_PosBonesMiddle0 = new Vector3[v_NumeroDeTirajes];
+            v_PosBonesPinky0 = new Vector3[v_NumeroDeTirajes];
+            v_PosBonesRing0 = new Vector3[v_NumeroDeTirajes];
+
+            v_PosBonesThumb1 = new Vector3[v_NumeroDeTirajes];
+            v_PosBonesIndex1 = new Vector3[v_NumeroDeTirajes];
+            v_PosBonesMiddle1 = new Vector3[v_NumeroDeTirajes];
+            v_PosBonesPinky1 = new Vector3[v_NumeroDeTirajes];
+            v_PosBonesRing1 = new Vector3[v_NumeroDeTirajes];
+
+            v_PosBonesThumb2 = new Vector3[v_NumeroDeTirajes];
+            v_PosBonesIndex2 = new Vector3[v_NumeroDeTirajes];
+            v_PosBonesMiddle2 = new Vector3[v_NumeroDeTirajes];
+            v_PosBonesPinky2 = new Vector3[v_NumeroDeTirajes];
+            v_PosBonesRing2 = new Vector3[v_NumeroDeTirajes];
+
+
+            v_RotBonesThumb0 = new Vector3[v_NumeroDeTirajes];
+            v_RotBonesIndex0 = new Vector3[v_NumeroDeTirajes];
+            v_RotBonesMiddle0 = new Vector3[v_NumeroDeTirajes];
+            v_RotBonesPinky0 = new Vector3[v_NumeroDeTirajes];
+            v_RotBonesRing0 = new Vector3[v_NumeroDeTirajes];
+
+            v_RotBonesThumb1 = new Vector3[v_NumeroDeTirajes];
+            v_RotBonesIndex1 = new Vector3[v_NumeroDeTirajes];
+            v_RotBonesMiddle1 = new Vector3[v_NumeroDeTirajes];
+            v_RotBonesPinky1 = new Vector3[v_NumeroDeTirajes];
+            v_RotBonesRing1 = new Vector3[v_NumeroDeTirajes];
+
+            v_RotBonesThumb2 = new Vector3[v_NumeroDeTirajes];
+            v_RotBonesIndex2 = new Vector3[v_NumeroDeTirajes];
+            v_RotBonesMiddle2 = new Vector3[v_NumeroDeTirajes];
+            v_RotBonesPinky2 = new Vector3[v_NumeroDeTirajes];
+            v_RotBonesRing2 = new Vector3[v_NumeroDeTirajes];
+
+            v_PosBrazo = new Vector3[v_NumeroDeTirajes];
+            v_RotBrazo = new Vector3[v_NumeroDeTirajes];
+
+            v_PosPalma = new Vector3[v_NumeroDeTirajes];
+            v_RotPalma = new Vector3[v_NumeroDeTirajes];
+        }
     }
 
     public class s_ManagerExtend : Detector
@@ -281,27 +350,7 @@ namespace Leap.Unity
 
         void Start()
         {
-            int _tirajes = 0;
-            switch (v_CiclosDeGravacion)
-            {
-                case CiclosGravado._1Times:
-                    _tirajes = 1;
-                    break;
-                case CiclosGravado._5Times:
-                    _tirajes = 5;
-                    break;
-                case CiclosGravado._10Times:
-                    _tirajes = 10;
-                    break;
-                case CiclosGravado._15Times:
-                    _tirajes = 15;
-                    break;
-                case CiclosGravado._20Times:
-                    _tirajes = 20;
-                    break;
-            }
-            v_ManoIzquierda = new HandRecord(_tirajes);
-            v_ManoDerecha = new HandRecord(_tirajes);
+        
         }
         void Awake()
         {
@@ -357,6 +406,10 @@ namespace Leap.Unity
                     _tirajes = 20;
                     break;
             }
+
+            v_ManoIzquierda = new HandRecord(_tirajes);
+            v_ManoDerecha = new HandRecord(_tirajes);
+
             Debug.Log("Se activo corutina de guardado");
             StartCoroutine(fn_GuardarDatos(_tirajes, _tiempoEnTiraje));
         }
@@ -395,7 +448,7 @@ namespace Leap.Unity
                 {
                     v_ManoIzquierda.v_ManoActiva = true;
 
-                    v_ManoIzquierda.v_RotacionPalma = v_PosicionManoIzquierda;
+                    v_ManoIzquierda.v_RotacionPalma[i] = v_PosicionManoIzquierda;
                     Debug.Log(v_ManoIzquierda.v_RotacionPalma);
                     Debug.Log(v_PosicionManoIzquierda);
                     v_ManoIzquierda.v_EstadoThumb[i] = v_EstadoThumbIzquierdo;
@@ -473,7 +526,7 @@ namespace Leap.Unity
                 {
                     v_ManoDerecha.v_ManoActiva = true;
 
-                    v_ManoDerecha.v_RotacionPalma = v_PosicionManoDerecha;
+                    v_ManoDerecha.v_RotacionPalma[i] = v_PosicionManoDerecha;
                     Debug.Log(v_ManoDerecha.v_RotacionPalma);
                     Debug.Log(v_ManoDerecha);
                     v_ManoDerecha.v_EstadoThumb[i] = v_EstadoThumbDerecho;
@@ -549,6 +602,10 @@ namespace Leap.Unity
             Debug.Log("Se acciona el guardado en json");
             fn_GuardarDatosJSonFormat(v_NombreArchivo.text, _numeroTirajes);
             Debug.Log("Termino de GuardarInformacion");
+
+            v_ManoDerecha.ClearClass(_numeroTirajes);
+            v_ManoIzquierda.ClearClass(_numeroTirajes);
+
         }
 
 
@@ -625,9 +682,6 @@ namespace Leap.Unity
                 yield return new WaitForSeconds(v_periodoActualizacion);
             }
         }
-         
-
-
 
         #endregion
 
