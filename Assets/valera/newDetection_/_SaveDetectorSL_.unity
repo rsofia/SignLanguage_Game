@@ -170,22 +170,90 @@ MonoBehaviour:
     v_ManoActiva: 0
     v_RotacionPalma: 
     v_NumeroDeTirajes: 0
-    v_EstadoThumb: 0
-    v_EstadoIndex: 0
-    v_EstadoMiddle: 0
-    v_EstadoPinky: 0
-    v_EstadoRing: 0
-    v_DedosExtendidos: 0
+    v_EstadoThumb: 
+    v_EstadoIndex: 
+    v_EstadoMiddle: 
+    v_EstadoPinky: 
+    v_EstadoRing: 
+    v_DedosExtendidos: 
+    v_PosBonesThumb0: []
+    v_PosBonesIndex0: []
+    v_PosBonesMiddle0: []
+    v_PosBonesPinky0: []
+    v_PosBonesRing0: []
+    v_PosBonesThumb1: []
+    v_PosBonesIndex1: []
+    v_PosBonesMiddle1: []
+    v_PosBonesPinky1: []
+    v_PosBonesRing1: []
+    v_PosBonesThumb2: []
+    v_PosBonesIndex2: []
+    v_PosBonesMiddle2: []
+    v_PosBonesPinky2: []
+    v_PosBonesRing2: []
+    v_RotBonesThumb0: []
+    v_RotBonesIndex0: []
+    v_RotBonesMiddle0: []
+    v_RotBonesPinky0: []
+    v_RotBonesRing0: []
+    v_RotBonesThumb1: []
+    v_RotBonesIndex1: []
+    v_RotBonesMiddle1: []
+    v_RotBonesPinky1: []
+    v_RotBonesRing1: []
+    v_RotBonesThumb2: []
+    v_RotBonesIndex2: []
+    v_RotBonesMiddle2: []
+    v_RotBonesPinky2: []
+    v_RotBonesRing2: []
+    v_PosBrazo: []
+    v_RotBrazo: []
+    v_PosPalma: []
+    v_RotPalma: []
   v_ManoDerecha:
     v_ManoActiva: 0
     v_RotacionPalma: 
     v_NumeroDeTirajes: 1
-    v_EstadoThumb: 0
-    v_EstadoIndex: 0
-    v_EstadoMiddle: 0
-    v_EstadoPinky: 0
-    v_EstadoRing: 0
-    v_DedosExtendidos: 0
+    v_EstadoThumb: 
+    v_EstadoIndex: 
+    v_EstadoMiddle: 
+    v_EstadoPinky: 
+    v_EstadoRing: 
+    v_DedosExtendidos: 
+    v_PosBonesThumb0: []
+    v_PosBonesIndex0: []
+    v_PosBonesMiddle0: []
+    v_PosBonesPinky0: []
+    v_PosBonesRing0: []
+    v_PosBonesThumb1: []
+    v_PosBonesIndex1: []
+    v_PosBonesMiddle1: []
+    v_PosBonesPinky1: []
+    v_PosBonesRing1: []
+    v_PosBonesThumb2: []
+    v_PosBonesIndex2: []
+    v_PosBonesMiddle2: []
+    v_PosBonesPinky2: []
+    v_PosBonesRing2: []
+    v_RotBonesThumb0: []
+    v_RotBonesIndex0: []
+    v_RotBonesMiddle0: []
+    v_RotBonesPinky0: []
+    v_RotBonesRing0: []
+    v_RotBonesThumb1: []
+    v_RotBonesIndex1: []
+    v_RotBonesMiddle1: []
+    v_RotBonesPinky1: []
+    v_RotBonesRing1: []
+    v_RotBonesThumb2: []
+    v_RotBonesIndex2: []
+    v_RotBonesMiddle2: []
+    v_RotBonesPinky2: []
+    v_RotBonesRing2: []
+    v_PosBrazo: []
+    v_RotBrazo: []
+    v_PosPalma: []
+    v_RotPalma: []
   v_PosicionManoIzquierda: 
   v_PosicionManoDerecha: 
   v_NumeroDeDedosActivosHDerecha: 0
@@ -220,6 +288,8 @@ MonoBehaviour:
   - {fileID: 778474655}
   - {fileID: 457495195}
   - {fileID: 719017931}
+  PalmI: {fileID: 566539788}
+  ForI: {fileID: 2074052604}
   ThumbD:
   - {fileID: 434750}
   - {fileID: 1771771573}
@@ -240,6 +310,8 @@ MonoBehaviour:
   - {fileID: 948638651}
   - {fileID: 589533623}
   - {fileID: 1687206557}
+  PalmD: {fileID: 584347494}
+  ForD: {fileID: 1273079443}
 --- !u!4 &21411943
 Transform:
   m_ObjectHideFlags: 0
@@ -575,6 +647,14 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 533463888}
+--- !u!1 &566539788 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 121614, guid: 23f2cce114628a448bfeaae171b4c0c0, type: 2}
+  m_PrefabInternal: {fileID: 1367067090}
+--- !u!1 &584347494 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 146154, guid: c8515ebee271c0649b9db1321f3026a4, type: 2}
+  m_PrefabInternal: {fileID: 678487715}
 --- !u!1 &589533623 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 136210, guid: c8515ebee271c0649b9db1321f3026a4, type: 2}
@@ -1742,6 +1822,10 @@ GameObject:
 --- !u!1 &1175145864 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 128146, guid: c8515ebee271c0649b9db1321f3026a4, type: 2}
+  m_PrefabInternal: {fileID: 678487715}
+--- !u!1 &1273079443 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 130690, guid: c8515ebee271c0649b9db1321f3026a4, type: 2}
   m_PrefabInternal: {fileID: 678487715}
 --- !u!1 &1325830794
 GameObject:
@@ -3238,6 +3322,10 @@ CanvasRenderer:
 GameObject:
   m_PrefabParentObject: {fileID: 135338, guid: c8515ebee271c0649b9db1321f3026a4, type: 2}
   m_PrefabInternal: {fileID: 678487715}
+--- !u!1 &2074052604 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 185758, guid: 23f2cce114628a448bfeaae171b4c0c0, type: 2}
+  m_PrefabInternal: {fileID: 1367067090}
 --- !u!1 &2142376051 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 101018, guid: c8515ebee271c0649b9db1321f3026a4, type: 2}
