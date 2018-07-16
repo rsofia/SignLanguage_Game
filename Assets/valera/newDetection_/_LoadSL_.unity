@@ -288,7 +288,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   der:
     v_ManoActiva: 0
-    v_RotacionPalma: 
+    v_RotacionPalma: []
     v_NumeroDeTirajes: 1
     v_EstadoThumb: 00000000
     v_EstadoIndex: 00000000
@@ -366,7 +366,7 @@ MonoBehaviour:
     - {x: 0, y: 0, z: 0}
   izq:
     v_ManoActiva: 0
-    v_RotacionPalma: 
+    v_RotacionPalma: []
     v_NumeroDeTirajes: 1
     v_EstadoThumb: 00000000
     v_EstadoIndex: 00000000
@@ -442,7 +442,7 @@ MonoBehaviour:
     - {x: 0, y: 0, z: 0}
     v_RotPalma:
     - {x: 0, y: 0, z: 0}
-  NombreDeArchivo: testIz5times-5
+  NombreDeArchivo: A_Der1s20t-20
 --- !u!4 &1827766287
 Transform:
   m_ObjectHideFlags: 0
