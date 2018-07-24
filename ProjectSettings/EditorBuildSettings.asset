@@ -14,3 +14,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/rsofia/Scenes/LevelSelection.unity
     guid: 7e862531d3fa40545a0737a1ba958b98
+  - enabled: 1
+    path: Assets/rsofia/Scenes/MiniGameSelection.unity
+    guid: 9766dc74fa2f43f45a3e8d19444b5d49
+  - enabled: 1
+    path: Assets/rsofia/Scenes/TEST_Minigames.unity
+    guid: 7569d4dc0ba26384c8a46b9649f4d772

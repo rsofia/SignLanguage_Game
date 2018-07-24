@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Minijuegos;
 
 public class SCR_Memorama_Anim_Match : StateMachineBehaviour {
 
@@ -20,8 +21,10 @@ public class SCR_Memorama_Anim_Match : StateMachineBehaviour {
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+#if UNITY_EDITOR
+        Debug.Log("Exit animation!");
+#endif
         myCard?.ChangeTurn();
-        myCard?.MarkAsCompleted();
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove(). Code that processes and affects root motion should be implemented here
