@@ -29,6 +29,7 @@ namespace Minijuegos
         private int puntajeFinal = 0; //Estas son las estrellas. Maximo 3, cada una con mitades.
 
         [Header("Estrellas")]
+        [Tooltip("How the score will be presented: 3 stars")]
         public SCR_StarSystem starSystem;
 
 

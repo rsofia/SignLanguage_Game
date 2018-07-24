@@ -12,9 +12,7 @@ namespace Minijuegos
         public NIVEL_DIFICULTAD nivelDificultad;
         public CATEGORIA categoria;
         public GameObject cartaPrefab;
-
-        [Header("Randomize")]
-        public bool randomize;
+        
         private SCR_MemoramaCard[] cartas;
         private List<SCR_MemoramaCard> currentTurnedCards = new List<SCR_MemoramaCard>();
 
