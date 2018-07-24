@@ -38,8 +38,11 @@ namespace Minijuegos
         protected int maxPossibleScore;
 
         [Header("Time Limit")]
+        [HideInInspector]
         public bool hasTimeLimit = false;
         [Tooltip("Time limit in seconds. Will be ignored if done procedurally.")]
+
+        [HideInInspector]
         public float timeLimit = 0.0f;
         private float maxTimeLimit;
         protected float deltaTime = 0.1f;
