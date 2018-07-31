@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Leap.Unity.Attributes;
-
+using System.IO;
+using UnityEngine.UI;
 
 namespace Leap.Unity
 {
@@ -15,7 +16,8 @@ namespace Leap.Unity
     }
     public enum CiclosGravado
     {
-         _5Times,
+        _1Times,
+        _5Times,
         _10Times,
         _15Times,
         _20Times
@@ -27,85 +29,257 @@ namespace Leap.Unity
         [SerializeField]
         public bool v_ManoActiva;
         [SerializeField]
-        public string v_RotacionPalma;
+        public string [] v_RotacionPalma;
 
         [SerializeField]
         public int v_NumeroDeTirajes;
 
         [SerializeField]
-        public int v_EstadoThumb;
+        public int []v_EstadoThumb;
         [SerializeField]
-        public int v_EstadoIndex;
+        public int []v_EstadoIndex;
         [SerializeField]
-        public int v_EstadoMiddle;
+        public int []v_EstadoMiddle;
         [SerializeField]
-        public int v_EstadoPinky;
+        public int []v_EstadoPinky;
         [SerializeField]
-        public int v_EstadoRing;
+        public int []v_EstadoRing;
 
         [SerializeField]
-        public int v_DedosExtendidos;
+        public int []v_DedosExtendidos;
+
+
+
+        //////////// Posiciones
+
 
         [SerializeField]
-        public Vector3[,] v_PosBonesThumb;
+        public Vector3[] v_PosBonesThumb0;
         [SerializeField]
-        public Vector3[,] v_PosBonesIndex;
+        public Vector3[] v_PosBonesIndex0;
         [SerializeField]
-        public Vector3[,] v_PosBonesMiddle;
+        public Vector3[] v_PosBonesMiddle0;
         [SerializeField]
-        public Vector3[,] v_PosBonesPinky;
+        public Vector3[] v_PosBonesPinky0;
         [SerializeField]
-        public Vector3[,] v_PosBonesRing;
+        public Vector3[] v_PosBonesRing0;
+
 
         [SerializeField]
-        public Vector3[,] v_RotBonesThumb;
+        public Vector3[] v_PosBonesThumb1;
         [SerializeField]
-        public Vector3[,] v_RotBonesIndex;
+        public Vector3[] v_PosBonesIndex1;
         [SerializeField]
-        public Vector3[,] v_RotBonesMiddle;
+        public Vector3[] v_PosBonesMiddle1;
         [SerializeField]
-        public Vector3[,] v_RotBonesPinky;
+        public Vector3[] v_PosBonesPinky1;
         [SerializeField]
-        public Vector3[,] v_RotBonesRing;
+        public Vector3[] v_PosBonesRing1;
 
         [SerializeField]
-        public Vector3[,] v_PosRotBrazo;
+        public Vector3[] v_PosBonesThumb2;
         [SerializeField]
-        public Vector3[,] v_PosRotPalma;
+        public Vector3[] v_PosBonesIndex2;
+        [SerializeField]
+        public Vector3[] v_PosBonesMiddle2;
+        [SerializeField]
+        public Vector3[] v_PosBonesPinky2;
+        [SerializeField]
+        public Vector3[] v_PosBonesRing2;
+
+        //////////// Rotaciones
+
+        [SerializeField]
+        public Vector3[] v_RotBonesThumb0;
+        [SerializeField]
+        public Vector3[] v_RotBonesIndex0;
+        [SerializeField]
+        public Vector3[] v_RotBonesMiddle0;
+        [SerializeField]
+        public Vector3[] v_RotBonesPinky0;
+        [SerializeField]
+        public Vector3[] v_RotBonesRing0;
+
+        [SerializeField]
+        public Vector3[] v_RotBonesThumb1;
+        [SerializeField]
+        public Vector3[] v_RotBonesIndex1;
+        [SerializeField]
+        public Vector3[] v_RotBonesMiddle1;
+        [SerializeField]
+        public Vector3[] v_RotBonesPinky1;
+        [SerializeField]
+        public Vector3[] v_RotBonesRing1;
+
+        [SerializeField]
+        public Vector3[] v_RotBonesThumb2;
+        [SerializeField]
+        public Vector3[] v_RotBonesIndex2;
+        [SerializeField]
+        public Vector3[] v_RotBonesMiddle2;
+        [SerializeField]
+        public Vector3[] v_RotBonesPinky2;
+        [SerializeField]
+        public Vector3[] v_RotBonesRing2;
+
+
+        ///
+
+
+        [SerializeField]
+        public Vector3[] v_PosBrazo;
+        [SerializeField]
+        public Vector3[] v_RotBrazo;
+        [SerializeField]
+        public Vector3[] v_PosPalma;
+        [SerializeField]
+        public Vector3[] v_RotPalma;
 
 
         public HandRecord(int _numeroTiraje)
         {
             v_ManoActiva = false;
 
-            v_RotacionPalma = "";
-
             v_NumeroDeTirajes = _numeroTiraje;
 
-            v_EstadoThumb     = 0;
-            v_EstadoIndex     = 0;
-            v_EstadoMiddle    = 0;
-            v_EstadoPinky     = 0;
-            v_EstadoRing      = 0;
-            v_DedosExtendidos = 0;
 
-            v_PosBonesThumb  = new Vector3[3, v_NumeroDeTirajes];
-            v_PosBonesIndex  = new Vector3[3, v_NumeroDeTirajes];
-            v_PosBonesMiddle = new Vector3[3, v_NumeroDeTirajes];
-            v_PosBonesPinky  = new Vector3[3, v_NumeroDeTirajes];
-            v_PosBonesRing   = new Vector3[3, v_NumeroDeTirajes];
+            v_EstadoThumb = new int[v_NumeroDeTirajes];
+            v_EstadoIndex = new int[v_NumeroDeTirajes];
+            v_EstadoMiddle = new int[v_NumeroDeTirajes];
+            v_EstadoPinky = new int[v_NumeroDeTirajes];
+            v_EstadoRing = new int[v_NumeroDeTirajes];
+            v_DedosExtendidos = new int[v_NumeroDeTirajes];
 
-            v_RotBonesThumb  = new Vector3[3, v_NumeroDeTirajes];
-            v_RotBonesIndex  = new Vector3[3, v_NumeroDeTirajes];
-            v_RotBonesMiddle = new Vector3[3, v_NumeroDeTirajes];
-            v_RotBonesPinky  = new Vector3[3, v_NumeroDeTirajes];
-            v_RotBonesRing   = new Vector3[3, v_NumeroDeTirajes];
+            v_RotacionPalma = new string[v_NumeroDeTirajes];
 
-            v_PosRotBrazo    = new Vector3[2, v_NumeroDeTirajes];
-            v_PosRotBrazo    = new Vector3[2, v_NumeroDeTirajes];
+            for (int i = 0; i < v_NumeroDeTirajes; i++)
+            {
+                v_EstadoThumb[i] = 0;
+                v_EstadoIndex[i] = 0;
+                v_EstadoMiddle[i] = 0;
+                v_EstadoPinky[i] = 0;
+                v_EstadoRing[i] = 0;
+                v_DedosExtendidos[i] = 0;
+                v_RotacionPalma[i] = "";
+
+            }
+
+            v_PosBonesThumb0  = new Vector3[v_NumeroDeTirajes];
+            v_PosBonesIndex0  = new Vector3[v_NumeroDeTirajes];
+            v_PosBonesMiddle0 = new Vector3[v_NumeroDeTirajes];
+            v_PosBonesPinky0  = new Vector3[v_NumeroDeTirajes];
+            v_PosBonesRing0   = new Vector3[v_NumeroDeTirajes];
+
+            v_PosBonesThumb1 = new Vector3[v_NumeroDeTirajes];
+            v_PosBonesIndex1 = new Vector3[v_NumeroDeTirajes];
+            v_PosBonesMiddle1 = new Vector3[v_NumeroDeTirajes];
+            v_PosBonesPinky1 = new Vector3[v_NumeroDeTirajes];
+            v_PosBonesRing1 = new Vector3[v_NumeroDeTirajes];
+
+            v_PosBonesThumb2 = new Vector3[v_NumeroDeTirajes];
+            v_PosBonesIndex2 = new Vector3[v_NumeroDeTirajes];
+            v_PosBonesMiddle2 = new Vector3[v_NumeroDeTirajes];
+            v_PosBonesPinky2 = new Vector3[v_NumeroDeTirajes];
+            v_PosBonesRing2 = new Vector3[v_NumeroDeTirajes];
+
+
+            v_RotBonesThumb0  = new Vector3[v_NumeroDeTirajes];
+            v_RotBonesIndex0  = new Vector3[v_NumeroDeTirajes];
+            v_RotBonesMiddle0 = new Vector3[v_NumeroDeTirajes];
+            v_RotBonesPinky0  = new Vector3[v_NumeroDeTirajes];
+            v_RotBonesRing0   = new Vector3[v_NumeroDeTirajes];
+
+            v_RotBonesThumb1 = new Vector3[v_NumeroDeTirajes];
+            v_RotBonesIndex1 = new Vector3[v_NumeroDeTirajes];
+            v_RotBonesMiddle1 = new Vector3[v_NumeroDeTirajes];
+            v_RotBonesPinky1 = new Vector3[v_NumeroDeTirajes];
+            v_RotBonesRing1 = new Vector3[v_NumeroDeTirajes];
+
+            v_RotBonesThumb2 = new Vector3[v_NumeroDeTirajes];
+            v_RotBonesIndex2 = new Vector3[v_NumeroDeTirajes];
+            v_RotBonesMiddle2 = new Vector3[v_NumeroDeTirajes];
+            v_RotBonesPinky2 = new Vector3[v_NumeroDeTirajes];
+            v_RotBonesRing2 = new Vector3[v_NumeroDeTirajes];
+
+            v_PosBrazo = new Vector3[v_NumeroDeTirajes];
+            v_RotBrazo = new Vector3[v_NumeroDeTirajes];
+
+            v_PosPalma = new Vector3[v_NumeroDeTirajes];
+            v_RotPalma = new Vector3[v_NumeroDeTirajes];
+
+
 
         }
 
+        public void ClearClass(int _numeroTiraje)
+        {
+            v_ManoActiva = false;
+
+            v_NumeroDeTirajes = _numeroTiraje;
+
+
+            v_EstadoThumb = new int[v_NumeroDeTirajes];
+            v_EstadoIndex = new int[v_NumeroDeTirajes];
+            v_EstadoMiddle = new int[v_NumeroDeTirajes];
+            v_EstadoPinky = new int[v_NumeroDeTirajes];
+            v_EstadoRing = new int[v_NumeroDeTirajes];
+            v_DedosExtendidos = new int[v_NumeroDeTirajes];
+
+            for (int i = 0; i < v_NumeroDeTirajes; i++)
+            {
+                v_EstadoThumb[i] = 0;
+                v_EstadoIndex[i] = 0;
+                v_EstadoMiddle[i] = 0;
+                v_EstadoPinky[i] = 0;
+                v_EstadoRing[i] = 0;
+                v_DedosExtendidos[i] = 0;
+                v_RotacionPalma[i] = "";
+
+            }
+
+            v_PosBonesThumb0 = new Vector3[v_NumeroDeTirajes];
+            v_PosBonesIndex0 = new Vector3[v_NumeroDeTirajes];
+            v_PosBonesMiddle0 = new Vector3[v_NumeroDeTirajes];
+            v_PosBonesPinky0 = new Vector3[v_NumeroDeTirajes];
+            v_PosBonesRing0 = new Vector3[v_NumeroDeTirajes];
+
+            v_PosBonesThumb1 = new Vector3[v_NumeroDeTirajes];
+            v_PosBonesIndex1 = new Vector3[v_NumeroDeTirajes];
+            v_PosBonesMiddle1 = new Vector3[v_NumeroDeTirajes];
+            v_PosBonesPinky1 = new Vector3[v_NumeroDeTirajes];
+            v_PosBonesRing1 = new Vector3[v_NumeroDeTirajes];
+
+            v_PosBonesThumb2 = new Vector3[v_NumeroDeTirajes];
+            v_PosBonesIndex2 = new Vector3[v_NumeroDeTirajes];
+            v_PosBonesMiddle2 = new Vector3[v_NumeroDeTirajes];
+            v_PosBonesPinky2 = new Vector3[v_NumeroDeTirajes];
+            v_PosBonesRing2 = new Vector3[v_NumeroDeTirajes];
+
+
+            v_RotBonesThumb0 = new Vector3[v_NumeroDeTirajes];
+            v_RotBonesIndex0 = new Vector3[v_NumeroDeTirajes];
+            v_RotBonesMiddle0 = new Vector3[v_NumeroDeTirajes];
+            v_RotBonesPinky0 = new Vector3[v_NumeroDeTirajes];
+            v_RotBonesRing0 = new Vector3[v_NumeroDeTirajes];
+
+            v_RotBonesThumb1 = new Vector3[v_NumeroDeTirajes];
+            v_RotBonesIndex1 = new Vector3[v_NumeroDeTirajes];
+            v_RotBonesMiddle1 = new Vector3[v_NumeroDeTirajes];
+            v_RotBonesPinky1 = new Vector3[v_NumeroDeTirajes];
+            v_RotBonesRing1 = new Vector3[v_NumeroDeTirajes];
+
+            v_RotBonesThumb2 = new Vector3[v_NumeroDeTirajes];
+            v_RotBonesIndex2 = new Vector3[v_NumeroDeTirajes];
+            v_RotBonesMiddle2 = new Vector3[v_NumeroDeTirajes];
+            v_RotBonesPinky2 = new Vector3[v_NumeroDeTirajes];
+            v_RotBonesRing2 = new Vector3[v_NumeroDeTirajes];
+
+            v_PosBrazo = new Vector3[v_NumeroDeTirajes];
+            v_RotBrazo = new Vector3[v_NumeroDeTirajes];
+
+            v_PosPalma = new Vector3[v_NumeroDeTirajes];
+            v_RotPalma = new Vector3[v_NumeroDeTirajes];
+        }
     }
 
     public class s_ManagerExtend : Detector
@@ -116,7 +290,7 @@ namespace Leap.Unity
         public float v_periodoActualizacion = 0.1f;
         public TiemposDisponibles v_TiempoDeGrabado;
         public CiclosGravado v_CiclosDeGravacion;
-
+        public InputField v_NombreArchivo;
 
         [Header("Requerimientos")]
         [Tooltip("The hand model to watch. Set automatically if detector is on a hand.")]
@@ -129,8 +303,8 @@ namespace Leap.Unity
         public bool v_ManoDerechaActiva;
 
         [Header("Datos a Guardar")]
-        public HandRecord v_ManoIzquierda = new HandRecord(1);
-        public HandRecord v_ManoDerecha = new HandRecord(1);
+        public HandRecord v_ManoIzquierda;
+        public HandRecord v_ManoDerecha;
 
         [Header("Datos de Visualizacion")]
         public string v_PosicionManoIzquierda;
@@ -151,11 +325,31 @@ namespace Leap.Unity
         public int v_EstadoPinkyDerecho;
         public int v_EstadoRingDerecho;
 
+        [Header("Objetos de ref Mano izquierda")]
+        public GameObject[] ThumbI;
+        public GameObject[] IndexI;
+        public GameObject[] MiddleI;
+        public GameObject[] PinkyI;
+        public GameObject[] RingI;
+        public GameObject PalmI;
+        public GameObject ForI;
+
+
+        [Header("Objetos de ref Mano Derecha")]
+        public GameObject[] ThumbD;
+        public GameObject[] IndexD;
+        public GameObject[] MiddleD;
+        public GameObject[] PinkyD;
+        public GameObject[] RingD;
+        public GameObject PalmD;
+        public GameObject ForD;
+
 
         private IEnumerator watcherCoroutine;
 
-        void Start() {
-
+        void Start()
+        {
+        
         }
         void Awake()
         {
@@ -165,7 +359,8 @@ namespace Leap.Unity
         {
             StartCoroutine(watcherCoroutine);
         }
-        void Update() {
+        void Update()
+        {
 
         }
 
@@ -176,45 +371,240 @@ namespace Leap.Unity
             int _tirajes = 0;
             int _tiempoEnTiraje = 0;
 
-            //Agregar Metodo para convertir los Enums a datos validos para ser procesados
+            switch(v_TiempoDeGrabado)
+            {
+                case TiemposDisponibles._1Segundos:
+                    _tiempoEnTiraje = 1;
+                    break;
+                case TiemposDisponibles._2Segundos:
+                    _tiempoEnTiraje = 2;
+                    break;
+                case TiemposDisponibles._5Segundos:
+                    _tiempoEnTiraje = 5;
+                    break;
+                case TiemposDisponibles._10Segundos:
+                    _tiempoEnTiraje = 10;
+                    break;
+            }
 
+            switch(v_CiclosDeGravacion)
+            {
+                case CiclosGravado._1Times:
+                    _tirajes = 1;
+                    break;
+                case CiclosGravado._5Times:
+                    _tirajes = 5;
+                    break;
+                case CiclosGravado._10Times:
+                    _tirajes = 10;
+                    break;
+                case CiclosGravado._15Times:
+                    _tirajes = 15;
+                    break;
+                case CiclosGravado._20Times:
+                    _tirajes = 20;
+                    break;
+            }
+
+            v_ManoIzquierda = new HandRecord(_tirajes);
+            v_ManoDerecha = new HandRecord(_tirajes);
+
+            Debug.Log("Se activo corutina de guardado");
             StartCoroutine(fn_GuardarDatos(_tirajes, _tiempoEnTiraje));
         }
 
         #region
-            public void fn_GuardarDatosJSonFormat()
-            {
-                //funcion para guardar toda la clase de forma de json 
-                //formato standart para poder hacer una lectura de forma nativa
-            }
+        public void fn_GuardarDatosJSonFormat(string _nombreGesto , int _tirajes)
+        {
+
+            string jsonManoIzquierda = JsonUtility.ToJson(v_ManoIzquierda);
+            string jsonManoDerecha = JsonUtility.ToJson(v_ManoDerecha);
+
+            if (!Directory.Exists("GestosJson"))
+                Directory.CreateDirectory("GestosJson");
+
+            string path = "GestosJson/" + _nombreGesto + "-"+_tirajes+".json";
+
+            StreamWriter writer = new StreamWriter(path, false);
+            writer.WriteLine(jsonManoIzquierda);
+            writer.WriteLine(jsonManoDerecha);
+
+            writer.Close();
+        }
         
-            public void fn_GuardarDatosBinaryFormat()
-            {
-                //funcion de respaldo para guardar datos de forma binaria
-                //de ser necesario agregarla
-            }    
         #endregion
 
         #region ///Corutinas
 
         IEnumerator fn_GuardarDatos(int _numeroTirajes, float _tiempoEntreTirajes)
         {
+            float tiempoTMp = _tiempoEntreTirajes / _numeroTirajes;
 
-            ///agregar condicionales para llenar ambas manos o solo 1 mano siendo el caso
-            ///Guardar datos individuales de cada parametro en la clase correspondiente
-
-            for(int i = 0; i < _numeroTirajes; i++)
+            for (int i = 0; i < _numeroTirajes; i++)
             {
+                Debug.Log("> Tiraje"+i);
+                if(v_ManoIzquierdaActiva)
+                {
+                    v_ManoIzquierda.v_ManoActiva = true;
 
-                yield return new WaitForSeconds(_numeroTirajes);
+                    v_ManoIzquierda.v_RotacionPalma[i] = v_PosicionManoIzquierda;
+                    Debug.Log(v_ManoIzquierda.v_RotacionPalma);
+                    Debug.Log(v_PosicionManoIzquierda);
+                    v_ManoIzquierda.v_EstadoThumb[i] = v_EstadoThumbIzquierdo;
+                    v_ManoIzquierda.v_EstadoIndex[i] = v_EstadoIndexIzquierdo;
+                    v_ManoIzquierda.v_EstadoMiddle[i] = v_EstadoMiddleIzquierdo;
+                    v_ManoIzquierda.v_EstadoPinky[i] = v_EstadoPinkyIzquierdo;
+                    v_ManoIzquierda.v_EstadoRing[i] = v_EstadoRingIzquierdo;
+
+                    v_ManoIzquierda.v_DedosExtendidos[i] = v_NumeroDeDedosActivosHIzquierda;
+
+
+                    //Posiciones
+
+                    v_ManoIzquierda.v_PosBonesIndex0[i] = IndexI[0].transform.position;
+                    v_ManoIzquierda.v_PosBonesIndex1[i] = IndexI[1].transform.position;
+                    v_ManoIzquierda.v_PosBonesIndex2[i] = IndexI[2].transform.position;
+
+                    v_ManoIzquierda.v_PosBonesMiddle0[i] = MiddleI[0].transform.position;
+                    v_ManoIzquierda.v_PosBonesMiddle1[i] = MiddleI[1].transform.position;
+                    v_ManoIzquierda.v_PosBonesMiddle2[i] = MiddleI[2].transform.position;
+
+                    v_ManoIzquierda.v_PosBonesPinky0[i] = PinkyI[0].transform.position;
+                    v_ManoIzquierda.v_PosBonesPinky1[i] = PinkyI[1].transform.position;
+                    v_ManoIzquierda.v_PosBonesPinky2[i] = PinkyI[2].transform.position;
+
+                    v_ManoIzquierda.v_PosBonesRing0[i] = RingI[0].transform.position;
+                    v_ManoIzquierda.v_PosBonesRing1[i] = RingI[1].transform.position;
+                    v_ManoIzquierda.v_PosBonesRing2[i] = RingI[2].transform.position;
+
+                    v_ManoIzquierda.v_PosBonesThumb0[i] = ThumbI[0].transform.position;
+                    v_ManoIzquierda.v_PosBonesThumb1[i] = ThumbI[1].transform.position;
+                    v_ManoIzquierda.v_PosBonesThumb2[i] = ThumbI[2].transform.position;
+
+                    //Rotaciones
+
+                    v_ManoIzquierda.v_RotBonesIndex0[i] = IndexI[0].transform.rotation.eulerAngles;
+                    v_ManoIzquierda.v_RotBonesIndex1[i] = IndexI[1].transform.rotation.eulerAngles;
+                    v_ManoIzquierda.v_RotBonesIndex2[i] = IndexI[2].transform.rotation.eulerAngles;
+
+                    v_ManoIzquierda.v_RotBonesMiddle0[i] = MiddleI[0].transform.rotation.eulerAngles;
+                    v_ManoIzquierda.v_RotBonesMiddle1[i] = MiddleI[1].transform.rotation.eulerAngles;
+                    v_ManoIzquierda.v_RotBonesMiddle2[i] = MiddleI[2].transform.rotation.eulerAngles;
+
+                    v_ManoIzquierda.v_RotBonesPinky0[i] = PinkyI[0].transform.rotation.eulerAngles;
+                    v_ManoIzquierda.v_RotBonesPinky1[i] = PinkyI[1].transform.rotation.eulerAngles;
+                    v_ManoIzquierda.v_RotBonesPinky2[i] = PinkyI[2].transform.rotation.eulerAngles;
+
+                    v_ManoIzquierda.v_RotBonesRing0[i] = RingI[0].transform.rotation.eulerAngles;
+                    v_ManoIzquierda.v_RotBonesRing1[i] = RingI[1].transform.rotation.eulerAngles;
+                    v_ManoIzquierda.v_RotBonesRing2[i] = RingI[2].transform.rotation.eulerAngles;
+
+                    v_ManoIzquierda.v_RotBonesThumb0[i] = ThumbI[0].transform.rotation.eulerAngles;
+                    v_ManoIzquierda.v_RotBonesThumb1[i] = ThumbI[1].transform.rotation.eulerAngles;
+                    v_ManoIzquierda.v_RotBonesThumb2[i] = ThumbI[2].transform.rotation.eulerAngles;
+
+                    v_ManoIzquierda.v_PosBrazo[i] = ForI.transform.position;
+                    v_ManoIzquierda.v_RotBrazo[i] = ForI.transform.rotation.eulerAngles;
+
+                    v_ManoIzquierda.v_PosPalma[i]= PalmI.transform.position;
+                    v_ManoIzquierda.v_RotPalma[i]= PalmI.transform.rotation.eulerAngles;
+
+
+
+
+
+                }
+                else
+                {
+                    v_ManoIzquierda.v_ManoActiva = false;
+                    Debug.Log("Mano izquierda perdida");
+
+                }
+
+                if (v_ManoDerechaActiva)
+                {
+                    v_ManoDerecha.v_ManoActiva = true;
+
+                    v_ManoDerecha.v_RotacionPalma[i] = v_PosicionManoDerecha;
+                
+                    v_ManoDerecha.v_EstadoThumb[i] = v_EstadoThumbDerecho;
+                    v_ManoDerecha.v_EstadoIndex[i] = v_EstadoIndexDerecho;
+                    v_ManoDerecha.v_EstadoMiddle[i] = v_EstadoMiddleDerecho;
+                    v_ManoDerecha.v_EstadoPinky[i] = v_EstadoPinkyDerecho;
+                    v_ManoDerecha.v_EstadoRing[i] = v_EstadoRingDerecho;
+
+                    v_ManoDerecha.v_DedosExtendidos[i] = v_NumeroDeDedosActivosHDerecha;
+
+                    //Posiciones
+
+                    v_ManoDerecha.v_PosBonesIndex0[i] = IndexD[0].transform.position;
+                    v_ManoDerecha.v_PosBonesIndex1[i] = IndexD[1].transform.position;
+                    v_ManoDerecha.v_PosBonesIndex2[i] = IndexD[2].transform.position;
+
+                    v_ManoDerecha.v_PosBonesMiddle0[i] = MiddleD[0].transform.position;
+                    v_ManoDerecha.v_PosBonesMiddle1[i] = MiddleD[1].transform.position;
+                    v_ManoDerecha.v_PosBonesMiddle2[i] = MiddleD[2].transform.position;
+
+                    v_ManoDerecha.v_PosBonesPinky0[i] = PinkyD[0].transform.position;
+                    v_ManoDerecha.v_PosBonesPinky1[i] = PinkyD[1].transform.position;
+                    v_ManoDerecha.v_PosBonesPinky2[i] = PinkyD[2].transform.position;
+
+                    v_ManoDerecha.v_PosBonesRing0[i] = RingD[0].transform.position;
+                    v_ManoDerecha.v_PosBonesRing1[i] = RingD[1].transform.position;
+                    v_ManoDerecha.v_PosBonesRing2[i] = RingD[2].transform.position;
+
+                    v_ManoDerecha.v_PosBonesThumb0[i] = ThumbD[0].transform.position;
+                    v_ManoDerecha.v_PosBonesThumb1[i] = ThumbD[1].transform.position;
+                    v_ManoDerecha.v_PosBonesThumb2[i] = ThumbD[2].transform.position;
+
+                    //Rotaciones
+
+                    v_ManoDerecha.v_RotBonesIndex0[i] = IndexD[0].transform.rotation.eulerAngles;
+                    v_ManoDerecha.v_RotBonesIndex1[i] = IndexD[1].transform.rotation.eulerAngles;
+                    v_ManoDerecha.v_RotBonesIndex2[i] = IndexD[2].transform.rotation.eulerAngles;
+
+                    v_ManoDerecha.v_RotBonesMiddle0[i] = MiddleD[0].transform.rotation.eulerAngles;
+                    v_ManoDerecha.v_RotBonesMiddle1[i] = MiddleD[1].transform.rotation.eulerAngles;
+                    v_ManoDerecha.v_RotBonesMiddle2[i] = MiddleD[2].transform.rotation.eulerAngles;
+
+                    v_ManoDerecha.v_RotBonesPinky0[i] = PinkyD[0].transform.rotation.eulerAngles;
+                    v_ManoDerecha.v_RotBonesPinky1[i] = PinkyD[1].transform.rotation.eulerAngles;
+                    v_ManoDerecha.v_RotBonesPinky2[i] = PinkyD[2].transform.rotation.eulerAngles;
+
+                    v_ManoDerecha.v_RotBonesRing0[i] = RingD[0].transform.rotation.eulerAngles;
+                    v_ManoDerecha.v_RotBonesRing1[i] = RingD[1].transform.rotation.eulerAngles;
+                    v_ManoDerecha.v_RotBonesRing2[i] = RingD[2].transform.rotation.eulerAngles;
+
+                    v_ManoDerecha.v_RotBonesThumb0[i] = ThumbD[0].transform.rotation.eulerAngles;
+                    v_ManoDerecha.v_RotBonesThumb1[i] = ThumbD[1].transform.rotation.eulerAngles;
+                    v_ManoDerecha.v_RotBonesThumb2[i] = ThumbD[2].transform.rotation.eulerAngles;
+
+                    v_ManoDerecha.v_PosBrazo[i] = ForD.transform.position;
+                    v_ManoDerecha.v_RotBrazo[i] = ForD.transform.rotation.eulerAngles;
+
+                    v_ManoDerecha.v_PosPalma[i] = PalmD.transform.position;
+                    v_ManoDerecha.v_RotPalma[i] = PalmD.transform.rotation.eulerAngles;
+
+                }
+                else
+                {
+                    v_ManoDerecha.v_ManoActiva = false;
+                    Debug.Log("Mano Derecha perdida");
+
+                }
+
+                Debug.Log(">Termino el Tiraje " + i);
+
+                yield return new WaitForSeconds(tiempoTMp);
             }
 
-
-            //agregar metodo para guardar de forma local los datos de las clases
-            //json / binary format
-
-
+            Debug.Log("Se acciona el guardado en json");
+            fn_GuardarDatosJSonFormat(v_NombreArchivo.text, _numeroTirajes);
             Debug.Log("Termino de GuardarInformacion");
+
+            v_ManoDerecha.ClearClass(_numeroTirajes);
+            v_ManoIzquierda.ClearClass(_numeroTirajes);
+
         }
 
 
@@ -291,9 +681,6 @@ namespace Leap.Unity
                 yield return new WaitForSeconds(v_periodoActualizacion);
             }
         }
-         
-
-
 
         #endregion
 
