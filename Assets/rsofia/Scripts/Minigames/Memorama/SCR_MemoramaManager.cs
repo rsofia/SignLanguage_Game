@@ -8,9 +8,6 @@ namespace Minijuegos
     public class SCR_MemoramaManager : SCR_MinigameManager
     {
 
-        [Header("Nivel Procedural")]
-        public NIVEL_DIFICULTAD nivelDificultad;
-        public CATEGORIA categoria;
         public GameObject cartaPrefab;
         
         private SCR_MemoramaCard[] cartas;
@@ -23,6 +20,9 @@ namespace Minijuegos
 
         private void Start()
         {
+            nivelDificultad = SCR_CreateMinigamWith.nivelDificultadGlobal;
+            categoria = SCR_CreateMinigamWith.categoriaGlobal;
+
             cartas = FindObjectsOfType<SCR_MemoramaCard>();
             minigame = GetComponent<SCR_Minigame>();
 
@@ -31,6 +31,7 @@ namespace Minijuegos
             SetMaxPossibleScore();
             UpdateScore();
             BeginCountdown();
+
         }
 
         #region CARD DISPLAY

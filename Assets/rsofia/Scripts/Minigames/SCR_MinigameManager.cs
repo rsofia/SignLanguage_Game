@@ -24,8 +24,17 @@ namespace Minijuegos
         ANIMALES
     }
 
+    public enum MINIJUEGO
+    {
+        MEMORAMA,
+        LOTERIA
+    }
+
     public class SCR_MinigameManager : MonoBehaviour
     {
+        [Header("Nivel Procedural")]
+        public NIVEL_DIFICULTAD nivelDificultad;
+        public CATEGORIA categoria;
 
         [Header("User Interface")]
         [Tooltip("Text to display the score")]
