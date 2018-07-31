@@ -108,6 +108,7 @@ namespace Minijuegos
             txtScore.text = score.ToString();
         }
 
+
         #endregion
 
         #region TIME

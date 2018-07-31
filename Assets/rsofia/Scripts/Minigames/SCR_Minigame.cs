@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.IO;
+using System.Security.Cryptography;
 
 namespace Minijuegos
 {
@@ -181,6 +183,38 @@ namespace Minijuegos
 
             Debug.Log("Puntaje Final: " + puntajeFinal);
             starSystem.FillStarsWithScore(puntajeFinal);
+            SaveFinalScore(puntajeFinal);
+        }
+
+
+        private void SaveFinalScore(int _finalScore)
+        {
+            string scorePath = Application.dataPath + "/SistemaDelJuego/Puntajes/" + SCR_CreateMinigamWith.levelIDGlobal + ".txt";
+            if (!File.Exists(scorePath))
+            {
+                Directory.CreateDirectory(Application.dataPath + "/SistemaDelJuego/Puntajes/");
+                FileStream fi = File.Create(scorePath);
+                fi.Close();
+            }
+
+            TextWriter textWriter = new StreamWriter(scorePath, false);
+            textWriter.Write("Puntaje:" + _finalScore);
+            textWriter.Close();
+        }
+        public static int GetScoreFrom(string _levelID)
+        {
+            string scorePath = Application.dataPath + "/SistemaDelJuego/Puntajes/" + _levelID + ".txt";
+            int result = 0;
+            if(File.Exists(scorePath))
+            {
+                TextReader tex = new StreamReader(scorePath);
+                string r = tex.ReadLine();
+                if (r.Contains("Puntaje:"))
+                    r = r.Remove(0, 8);
+                Debug.Log("String leido: " + r);
+                int.TryParse(r, out result);
+            }
+            return result;
         }
         #endregion
     }

@@ -479,6 +479,11 @@ Prefab:
       propertyPath: nivelDificultad
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 114842617565080790, guid: 86387a3e61a12ea4da9d8403d97eb696,
+        type: 2}
+      propertyPath: levelID
+      value: Mini_Mem_04
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 86387a3e61a12ea4da9d8403d97eb696, type: 2}
   m_IsPrefabParent: 0
@@ -726,8 +731,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 467587077}
   m_HandleRect: {fileID: 467587076}
   m_Direction: 0
-  m_Value: 0
-  m_Size: 1
+  m_Value: 0.5
+  m_Size: 0.99999994
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1437,6 +1442,11 @@ Prefab:
       propertyPath: nivelDificultad
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114842617565080790, guid: 86387a3e61a12ea4da9d8403d97eb696,
+        type: 2}
+      propertyPath: levelID
+      value: Mini_Mem_02
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 86387a3e61a12ea4da9d8403d97eb696, type: 2}
   m_IsPrefabParent: 0
@@ -1562,7 +1572,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.00002035073}
+  m_AnchoredPosition: {x: 0, y: -0.000008602323}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &637285257
@@ -2282,6 +2292,11 @@ Prefab:
       propertyPath: m_Name
       value: PRE_Boton_Nivel_Minijuego (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 114842617565080790, guid: 86387a3e61a12ea4da9d8403d97eb696,
+        type: 2}
+      propertyPath: levelID
+      value: Mini_Mem_01
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 86387a3e61a12ea4da9d8403d97eb696, type: 2}
   m_IsPrefabParent: 0
@@ -2399,8 +2414,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 207912169}
   m_HandleRect: {fileID: 207912168}
   m_Direction: 0
-  m_Value: 0
-  m_Size: 0.9925372
+  m_Value: 0.0000061033666
+  m_Size: 0.99253714
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2824,6 +2839,11 @@ Prefab:
         type: 2}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114842617565080790, guid: 86387a3e61a12ea4da9d8403d97eb696,
+        type: 2}
+      propertyPath: levelID
+      value: Mini_Mem_00
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 86387a3e61a12ea4da9d8403d97eb696, type: 2}
@@ -3301,7 +3321,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1017596579}
   m_HandleRect: {fileID: 1017596578}
   m_Direction: 0
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -3782,6 +3802,11 @@ Prefab:
         type: 2}
       propertyPath: nivelDificultad
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114842617565080790, guid: 86387a3e61a12ea4da9d8403d97eb696,
+        type: 2}
+      propertyPath: levelID
+      value: Mini_Mem_03
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 86387a3e61a12ea4da9d8403d97eb696, type: 2}
@@ -4308,8 +4333,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1581300226}
   m_HandleRect: {fileID: 1581300225}
   m_Direction: 2
-  m_Value: 0.9999982
-  m_Size: 0.83
+  m_Value: 0.99999684
+  m_Size: 0.8299999
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

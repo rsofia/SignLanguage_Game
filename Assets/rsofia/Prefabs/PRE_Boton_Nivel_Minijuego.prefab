@@ -350,10 +350,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7032520673285ba4fb9fcd8a06413a65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelID: Mini_
+  sistemaDeEstrellas: {fileID: 114392433792458752}
   nivelDificultad: 0
   categoria: 0
   minijuego: 0
-  memoramaPrefab: {fileID: 0}
 --- !u!114 &114919757402515858
 MonoBehaviour:
   m_ObjectHideFlags: 1
