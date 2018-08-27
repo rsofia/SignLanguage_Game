@@ -12,6 +12,7 @@ namespace Minijuegos
         
         private SCR_MemoramaCard[] cartas;
         private List<SCR_MemoramaCard> currentTurnedCards = new List<SCR_MemoramaCard>();
+        public static bool isGameOn = false;
 
 
         private int scorePerPair = 10;
@@ -27,18 +28,12 @@ namespace Minijuegos
             minigame = GetComponent<SCR_Minigame>();
 
             CreateProceduralLevel();
-
             SetMaxPossibleScore();
             UpdateScore();
-            BeginCountdown();
 
         }
 
         #region CARD DISPLAY
-        private void RandomizeCards()
-        {
-
-        }
         public void AddACard(SCR_MemoramaCard _card)
         {
             currentTurnedCards.Add(_card);
@@ -51,8 +46,13 @@ namespace Minijuegos
 
             if(currentTurnedCards.Count == 2)
             {
+                if (currentTurnedCards[0].connection.frontSource == currentTurnedCards[1].frontSource)
+                {
+                    currentTurnedCards[0].Match(currentTurnedCards[1]);
+                    Debug.Log("Same sprite");
+                }
                 //Check if shown cards arent a match (if they are a match, it's automatically check inside each MemoramaCard)
-                if (currentTurnedCards[0].connection != currentTurnedCards[1])
+                else if (currentTurnedCards[0].connection != currentTurnedCards[1])
                 {
                     minigame.RestLife();
                     //Voltear las dos
@@ -60,6 +60,7 @@ namespace Minijuegos
                     currentTurnedCards[1].Turn();
                     currentTurnedCards.Clear();
                 }
+                
 #if UNITY_EDITOR
                 else
                     Debug.Log("1. Connections do match!");
@@ -106,13 +107,14 @@ namespace Minijuegos
             if(activeCards == 0)
             {
                 minigame.GameOver("Game Won!", true);
+                isGameOn = false;
             }
         }
 
         public override void CreateProceduralLevel()
         {
             base.CreateProceduralLevel();
-
+            isGameOn = false;
             int numberOfCards = 2;
 
             Debug.Log(Application.dataPath);
@@ -174,6 +176,8 @@ namespace Minijuegos
 
                 cartaTemp = Instantiate(cartaPrefab);
                 cartas[i] = cartaTemp.GetComponent<SCR_MemoramaCard>();
+                cartas[i].Init();
+                cartas[i].frontSource = fileURL;
                 StartCoroutine(ImportSprite(fileURL, cartas[i]));
                 AcomodarEnGrid(cartaTemp.transform);
 
@@ -181,11 +185,13 @@ namespace Minijuegos
                 fileURL = fileURL.Replace(".jpg", "_gesto.jpg");
                 cartaTemp = Instantiate(cartaPrefab);
                 cartas[i+1] = cartaTemp.GetComponent<SCR_MemoramaCard>();
+                cartas[i + 1].frontSource = fileURL;
                 StartCoroutine(ImportSprite(fileURL, cartas[i+1]));
                 AcomodarEnGrid(cartas[i + 1].transform);
                 cartas[i].connection = cartas[i + 1];
             }
 
+            ShowCardsForAFewSeconds();
         }        
 
         IEnumerator ImportSprite(string url, SCR_MemoramaCard _card)
@@ -193,8 +199,8 @@ namespace Minijuegos
             Texture2D tex = new Texture2D(4, 4, TextureFormat.DXT1, false);
             WWW www = new WWW("file://"+url);
             yield return www;
-            Debug.Log("Finished" + url);
-            Debug.Log("Bytes downloaded" + www.bytesDownloaded);
+            //Debug.Log("Finished" + url);
+            //Debug.Log("Bytes downloaded" + www.bytesDownloaded);
             www.LoadImageIntoTexture(tex);
             _card.front = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f));
         }
@@ -283,6 +289,29 @@ namespace Minijuegos
 
 
         }
+
+        private void ShowCardsForAFewSeconds()
+        {
+            StartCoroutine(WaitToStart());
+        }
+
+        IEnumerator WaitToStart()
+        {
+            for (int i = 0; i < cartas.Length; i++)
+            {
+                cartas[i].Turn();
+            }
+            yield return new WaitForSeconds(2.5f);
+
+            for (int i = 0; i < cartas.Length; i++)
+            {
+                cartas[i].Turn();
+            }
+
+            isGameOn = true;
+            BeginCountdown();
+        }
+
     }
 }
 

@@ -48,7 +48,7 @@ namespace Minijuegos
 
         [Header("Time Limit")]
         [HideInInspector]
-        public bool hasTimeLimit = false;
+        public bool hasTimeLimit = true;
         [Tooltip("Time limit in seconds. Will be ignored if done procedurally.")]
 
         [HideInInspector]

@@ -12,14 +12,20 @@ namespace Minijuegos
         public SCR_MemoramaCard connection;
         public Sprite front;
         public Sprite back;
+        public string frontSource = "";
 
         private SpriteRenderer mySpriteRenderer;
         private Animator myAnim;
         private bool wasAMatch = false;
         private bool isHidden = true;
-        private SCR_MemoramaManager memoramaManager;
+        public SCR_MemoramaManager memoramaManager;
 
         private void Start()
+        {
+            Init();
+        }
+
+        public void Init()
         {
             mySpriteRenderer = GetComponent<SpriteRenderer>();
             memoramaManager = FindObjectOfType<SCR_MemoramaManager>();
@@ -50,8 +56,14 @@ namespace Minijuegos
 
         public void Turn()
         {
+            if (memoramaManager == null)
+                memoramaManager = FindObjectOfType<SCR_MemoramaManager>();
             if (!memoramaManager.minigame.isGamePaused)
+            {
+                if (myAnim == null)
+                    myAnim = GetComponent<Animator>();
                 myAnim.SetTrigger("turn");
+            }
 #if UNITY_EDITOR
             else
                 Debug.Log("Game paused for some reason");
@@ -77,9 +89,11 @@ namespace Minijuegos
         private void Show()
         {
             mySpriteRenderer.sprite = front;
+            if(SCR_MemoramaManager.isGameOn)
             memoramaManager.AddACard(this);
             isHidden = false;
 
+            if(SCR_MemoramaManager.isGameOn)
             StartCoroutine(WaitForCheck());
            
         }
@@ -89,7 +103,7 @@ namespace Minijuegos
             yield return new WaitForEndOfFrame(); //Check if its connection is showing too
             if (connection != null && connection.connection != null)
             {
-                if (connection.IsShowing() && memoramaManager.IsCardTurned(this) && memoramaManager.IsCardTurned(connection))
+                if (connection.IsShowing() && memoramaManager.IsCardTurned(this) && memoramaManager.IsCardTurned(connection) && connection.gameObject.activeSelf)
                 {
 #if UNITY_EDITOR
                     Debug.Log("2. They were indeed a match.");
@@ -100,6 +114,15 @@ namespace Minijuegos
                     MarkAsCompleted();
                 }
             }
+        }
+
+        public void Match(SCR_MemoramaCard con)
+        {
+            wasAMatch = true;
+            memoramaManager.RemoveACard(this);
+            memoramaManager.RemoveACard(con);
+            connection = con;
+            MarkAsCompleted();
         }
 
         public void MarkAsCompleted()

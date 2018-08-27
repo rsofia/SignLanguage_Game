@@ -376,12 +376,17 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1721167037750210, guid: ac8bf0e0628ffae4b91bd889a1e5967c, type: 2}
       propertyPath: m_Name
-      value: btnGameType (1)
+      value: btnGameType - Minijuegos
       objectReference: {fileID: 0}
     - target: {fileID: 114974897770961542, guid: ac8bf0e0628ffae4b91bd889a1e5967c,
         type: 2}
       propertyPath: m_Text
       value: MINIJUEGOS
+      objectReference: {fileID: 0}
+    - target: {fileID: 114361026040136670, guid: ac8bf0e0628ffae4b91bd889a1e5967c,
+        type: 2}
+      propertyPath: levelName
+      value: MiniGameSelection
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ac8bf0e0628ffae4b91bd889a1e5967c, type: 2}
@@ -1141,7 +1146,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1759578590}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.99999994
+  m_Size: 0.09466973
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2028,6 +2033,10 @@ Prefab:
         type: 2}
       propertyPath: levelName
       value: LevelSelection
+      objectReference: {fileID: 0}
+    - target: {fileID: 1721167037750210, guid: ac8bf0e0628ffae4b91bd889a1e5967c, type: 2}
+      propertyPath: m_Name
+      value: btnGameType - juego principal
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ac8bf0e0628ffae4b91bd889a1e5967c, type: 2}
