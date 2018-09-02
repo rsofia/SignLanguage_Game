@@ -9,8 +9,13 @@ namespace Minijuegos
         [Header("Palabra(s) a Decifrar")]
         public string[] words;
 
+        [Header("Prefab Parent")]
+        public Transform letterParent;
+
         [Header("Prefabs")]
-        [Tooltip("Prefab de una linea en blanco para insertar la letra")]
+        [Tooltip("Prefab de un input field para mostrar la letra ")]
+        public GameObject letterPrefab;
+        [Tooltip("Prefab de una linea en blanco para insertar un espacio")]
         public GameObject blankPrefab;
 
         [Header("Score")]
@@ -60,6 +65,21 @@ namespace Minijuegos
         public override void CreateProceduralLevel()
         {
             base.CreateProceduralLevel();
+            GameObject temp;
+            foreach (string palabra in words)
+            {
+                foreach (char letra in palabra)
+                {
+                    if (letra != ' ' && letra != 0)
+                    {
+                        temp = Instantiate(letterPrefab, letterParent);
+                        temp.GetComponent<SCR_Ahorcado_Letra>().Init(letra);
+                    }
+                    else
+                        Instantiate(blankPrefab, letterParent);
+                }
+                Instantiate(blankPrefab, letterParent);
+            }
 
         }
         #endregion
