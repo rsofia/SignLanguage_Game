@@ -661,7 +661,7 @@ Prefab:
     - target: {fileID: 114487471898758570, guid: fc64089f3f1b27b4ba47c28785016e8d,
         type: 2}
       propertyPath: isBlocked
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114487471898758570, guid: fc64089f3f1b27b4ba47c28785016e8d,
         type: 2}
@@ -699,6 +699,11 @@ Prefab:
       value: 
       objectReference: {fileID: 21300000, guid: 0f55338c857574c4da2e62ba1e94827f,
         type: 3}
+    - target: {fileID: 114487471898758570, guid: fc64089f3f1b27b4ba47c28785016e8d,
+        type: 2}
+      propertyPath: up
+      value: 
+      objectReference: {fileID: 1948834710}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fc64089f3f1b27b4ba47c28785016e8d, type: 2}
   m_IsPrefabParent: 0
@@ -1411,7 +1416,7 @@ Prefab:
     - target: {fileID: 114487471898758570, guid: fc64089f3f1b27b4ba47c28785016e8d,
         type: 2}
       propertyPath: progress
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fc64089f3f1b27b4ba47c28785016e8d, type: 2}

@@ -49,6 +49,14 @@ public class SCR_CreateMinigamWith : MonoBehaviour {
                     SceneManager.LoadScene("Memorama_Minigame");
                 }
                 break;
+            case MINIJUEGO.AHORCADO:
+                {
+                    nivelDificultadGlobal = nivelDificultad;
+                    categoriaGlobal = categoria;
+                    levelIDGlobal = levelID;
+                    SceneManager.LoadScene("Ahorcado_Minigame");
+                }
+                break;
             default:
                 Debug.Log("Game not found");
                 break;

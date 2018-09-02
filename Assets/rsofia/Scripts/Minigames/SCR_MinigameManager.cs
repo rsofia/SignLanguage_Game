@@ -27,7 +27,8 @@ namespace Minijuegos
     public enum MINIJUEGO
     {
         MEMORAMA,
-        LOTERIA
+        LOTERIA,
+        AHORCADO
     }
 
     public class SCR_MinigameManager : MonoBehaviour
