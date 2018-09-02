@@ -153,8 +153,8 @@ Camera:
   m_GameObject: {fileID: 231590985}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0.9485294, g: 0.99574035, b: 1, a: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -232,16 +232,6 @@ Prefab:
     - target: {fileID: 4101283227076266, guid: ed1d011c710ee2946a84c606eb7b7cc3, type: 2}
       propertyPath: m_RootOrder
       value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114302423576959798, guid: ed1d011c710ee2946a84c606eb7b7cc3,
-        type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 114482117848299820, guid: ed1d011c710ee2946a84c606eb7b7cc3,
-        type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ed1d011c710ee2946a84c606eb7b7cc3, type: 2}

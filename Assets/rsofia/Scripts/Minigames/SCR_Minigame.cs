@@ -66,6 +66,7 @@ namespace Minijuegos
         {
             isGamePaused = true;
             pausePanel.SetActive(true);
+            Debug.Log("Paused!");
         }
         public void Resume()
         {
