@@ -42,7 +42,7 @@ public class Fuzzy : SCR_GestureDetection
     public static bool CompareVector(Vector3 a, Vector3 b)
     {
         bool result = false;
-        result = Vector3.SqrMagnitude(a - b) < 0.003;
+        result = Vector3.SqrMagnitude(a - b) < 0.005;
         //Debug.Log("Saved: " + b + " Current " + b + " " + result + "Vector comparison: " + Vector3.SqrMagnitude(a - b));
         return result;
     }
