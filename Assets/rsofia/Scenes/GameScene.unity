@@ -275,8 +275,8 @@ MonoBehaviour:
   v_NombreArchivo: {fileID: 533463890}
   v_HandModelDerecha: {fileID: 867040963}
   v_HandModelIzquierda: {fileID: 795409495}
-  v_ManoIzquierdaActiva: 0
-  v_ManoDerechaActiva: 0
+  v_ManoIzquierdaActiva: 1
+  v_ManoDerechaActiva: 1
   v_ManoIzquierda:
     v_ManoActiva: 0
     v_RotacionPalma: []
@@ -424,7 +424,7 @@ MonoBehaviour:
   PalmD: {fileID: 584347494}
   ForD: {fileID: 1273079443}
   panelGuardar: {fileID: 0}
-  matchFound: {fileID: 0}
+  matchFound: {fileID: 844951118}
 --- !u!4 &21411943
 Transform:
   m_ObjectHideFlags: 0
@@ -464,7 +464,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &292434767
 Transform:
   m_ObjectHideFlags: 0
@@ -1653,6 +1653,11 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1367067090}
   m_Script: {fileID: 11500000, guid: 9ea79be653ce14db8969d7225d95ec6c, type: 3}
+--- !u!1 &844951118 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1283343839745236, guid: 03c233167071e8c4fbcc3b222c7d45e3,
+    type: 2}
+  m_PrefabInternal: {fileID: 4115544}
 --- !u!114 &867040963 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 11406422, guid: c8515ebee271c0649b9db1321f3026a4,

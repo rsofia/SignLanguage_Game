@@ -619,7 +619,7 @@ namespace Leap.Unity
             bool[] isRight = new bool[_leftHand.v_NumeroDeTirajes];
             for (int i = 0; i < _leftHand.v_NumeroDeTirajes; i++)
             {
-                Debug.Log("> Tiraje" + i);
+                //Debug.Log("> Tiraje" + i);
                 if (v_ManoIzquierdaActiva && _leftHand.v_ManoActiva)
                 {
                     bool rot_Palma = _leftHand.v_RotacionPalma[i] == v_PosicionManoIzquierda;
@@ -714,6 +714,7 @@ namespace Leap.Unity
                     }
                 }
 
+                Debug.Log("Mano Derecha: " + v_ManoDerechaActiva + _rightHand.v_ManoActiva);
                 if (v_ManoDerechaActiva && _rightHand.v_ManoActiva)
                 {
                     bool rot_Palma = _rightHand.v_RotacionPalma[i] == v_PosicionManoDerecha;
@@ -723,11 +724,18 @@ namespace Leap.Unity
                     bool estadoRing = _rightHand.v_EstadoRing[i] == v_EstadoRingDerecho;
                     bool estadoPinky = _rightHand.v_EstadoPinky[i] == v_EstadoPinkyDerecho;
 
-                    bool dedosExtendidos = _rightHand.v_DedosExtendidos[i] == v_NumeroDeDedosActivosHDerecha;
+                    Debug.Log("Rot palma: " + _rightHand.v_RotacionPalma[i] + " - " + v_PosicionManoDerecha + "\n"+
+                        "Estado Thumb: " + _rightHand.v_EstadoThumb[i] + " - " + v_EstadoThumbDerecho + "\n"+
+                        "Estado Index: " + _rightHand.v_EstadoIndex[i] + " - " + v_EstadoIndexDerecho + "\n" +
+                        "Estado Middle: " + _rightHand.v_EstadoMiddle[i] + " - " + v_EstadoMiddleDerecho + "\n" +
+                        "Estado Ring: " + _rightHand.v_EstadoRing[i] + " - " + v_EstadoPinkyDerecho + "\n" +
+                        "Estado Pinky: " + _rightHand.v_EstadoPinky[i] + " - " + v_EstadoPinkyDerecho + "\n");
+
+                    bool dedosExtendidos = Fuzzy.CompareInt(_rightHand.v_DedosExtendidos[i], v_NumeroDeDedosActivosHDerecha);
 
 
                     //Posiciones
-
+                    #region POSICIONES
                     bool[] posBonesIndex = new bool[3];
                     posBonesIndex[0] = Fuzzy.CompareVector(_rightHand.v_PosBonesIndex0[i] , IndexD[0].transform.position);
                     posBonesIndex[1] = Fuzzy.CompareVector(_rightHand.v_PosBonesIndex1[i] , IndexD[1].transform.position);
@@ -752,9 +760,10 @@ namespace Leap.Unity
                     posBonesThumb[0] =  Fuzzy.CompareVector(_rightHand.v_PosBonesThumb0[i]  ,   ThumbD[0].transform.position);
                     posBonesThumb[1] =  Fuzzy.CompareVector(_rightHand.v_PosBonesThumb1[i]  ,   ThumbD[1].transform.position);
                     posBonesThumb[2] =  Fuzzy.CompareVector(_rightHand.v_PosBonesThumb2[i]  ,   ThumbD[2].transform.position);
+                    #endregion
 
                     //Rotaciones
-
+                    #region ROTACIONES
                     bool[] rotBonesIndex = new bool[3];
                     rotBonesIndex[0] = Fuzzy.CompareVector(_rightHand.v_RotBonesIndex0[i] , IndexD[0].transform.rotation.eulerAngles);
                     rotBonesIndex[1] = Fuzzy.CompareVector(_rightHand.v_RotBonesIndex1[i] , IndexD[1].transform.rotation.eulerAngles);
@@ -779,6 +788,7 @@ namespace Leap.Unity
                     rotBonesThumb[0] = Fuzzy.CompareVector(_rightHand.v_RotBonesThumb0[i] , ThumbD[0].transform.rotation.eulerAngles);
                     rotBonesThumb[1] = Fuzzy.CompareVector(_rightHand.v_RotBonesThumb1[i] , ThumbD[1].transform.rotation.eulerAngles);
                     rotBonesThumb[2] = Fuzzy.CompareVector(_rightHand.v_RotBonesThumb2[i] , ThumbD[2].transform.rotation.eulerAngles);
+                    #endregion
 
                     bool posBrazo = Fuzzy.CompareVector(_rightHand.v_PosBrazo[i] ,ForD.transform.position);
                     bool rotBrazo = Fuzzy.CompareVector(_rightHand.v_RotBrazo[i] ,ForD.transform.rotation.eulerAngles);
@@ -813,15 +823,15 @@ namespace Leap.Unity
                     }
 
                 }
-               
 
-                Debug.Log(">Termino el Tiraje " + i);
+
+                Debug.Log("Is right? i = " + i + " "+ isRight[i]);
+                //Debug.Log(">Termino el Tiraje " + i);
 
                 yield return new WaitForSeconds(tiempoTMp);
             }
 
             //Do whatever to mark as done
-            Debug.Log("Is right? " + isRight[0]);
             if((_leftHand.v_ManoActiva && isLeft[0]) || (_rightHand.v_ManoActiva && isRight[0]))
             {
                 StartCoroutine(WaitToTurnPanelOff(matchFound));

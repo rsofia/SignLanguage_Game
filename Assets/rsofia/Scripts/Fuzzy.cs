@@ -47,5 +47,12 @@ public class Fuzzy : SCR_GestureDetection
         return result;
     }
 
+    public static bool CompareInt(int a, int b)
+    {
+        bool result = false;
+        result = (a + 1) <= b && (a - 1) >= b;
+        return result;
+    }
+
     #endregion
 }
