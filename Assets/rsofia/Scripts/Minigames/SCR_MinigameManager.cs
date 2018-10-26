@@ -21,14 +21,16 @@ namespace Minijuegos
         OBJETOS,
         DELETREO,
         SALUDOS,
-        ANIMALES
+        ANIMALES,
+        MATEMATICAS
     }
 
     public enum MINIJUEGO
     {
         MEMORAMA,
         LOTERIA,
-        AHORCADO
+        AHORCADO,
+        JUEGOPRINCIPAL,
     }
 
     public class SCR_MinigameManager : MonoBehaviour
@@ -48,7 +50,7 @@ namespace Minijuegos
         protected int maxPossibleScore;
 
         [Header("Time Limit")]
-        [HideInInspector]
+        //[HideInInspector]
         public bool hasTimeLimit = true;
         [Tooltip("Time limit in seconds. Will be ignored if done procedurally.")]
 

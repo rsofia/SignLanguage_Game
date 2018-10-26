@@ -344,13 +344,12 @@ namespace Leap.Unity
         public GameObject PalmD;
         public GameObject ForD;
 
+        [Header("Interfaz")]
+        public GameObject panelGuardar;
+        public GameObject matchFound;
 
         private IEnumerator watcherCoroutine;
-
-        void Start()
-        {
-        
-        }
+                       
         void Awake()
         {
             watcherCoroutine = extendedFingerWatcher();
@@ -359,11 +358,6 @@ namespace Leap.Unity
         {
             StartCoroutine(watcherCoroutine);
         }
-        void Update()
-        {
-
-        }
-
 
         public void GuardarTiraje()
         {
@@ -423,7 +417,8 @@ namespace Leap.Unity
             if (!Directory.Exists("GestosJson"))
                 Directory.CreateDirectory("GestosJson");
 
-            string path = "GestosJson/" + _nombreGesto + "-"+_tirajes+".json";
+            string path = Application.dataPath + "/Archivos/GestosJson/" + _nombreGesto + "-"+_tirajes+".json";
+            
 
             StreamWriter writer = new StreamWriter(path, false);
             writer.WriteLine(jsonManoIzquierda);
@@ -431,6 +426,7 @@ namespace Leap.Unity
 
             writer.Close();
         }
+        
         
         #endregion
 
@@ -602,11 +598,236 @@ namespace Leap.Unity
             fn_GuardarDatosJSonFormat(v_NombreArchivo.text, _numeroTirajes);
             Debug.Log("Termino de GuardarInformacion");
 
+            StartCoroutine(WaitToTurnPanelOff(panelGuardar));
+
             v_ManoDerecha.ClearClass(_numeroTirajes);
             v_ManoIzquierda.ClearClass(_numeroTirajes);
 
         }
 
+        IEnumerator WaitToTurnPanelOff(GameObject panel)
+        {
+            panel.SetActive(true);
+            yield return new WaitForSeconds(1.5f);
+            panel.SetActive(false);
+        }
+
+        public IEnumerator CompararDatos(HandRecord _leftHand, HandRecord _rightHand, float _tiempoEntreTirajes)
+        {
+            float tiempoTMp = _tiempoEntreTirajes / _leftHand.v_NumeroDeTirajes;
+            bool[] isLeft = new bool[_leftHand.v_NumeroDeTirajes];
+            bool[] isRight = new bool[_leftHand.v_NumeroDeTirajes];
+            for (int i = 0; i < _leftHand.v_NumeroDeTirajes; i++)
+            {
+                Debug.Log("> Tiraje" + i);
+                if (v_ManoIzquierdaActiva && _leftHand.v_ManoActiva)
+                {
+                    bool rot_Palma = _leftHand.v_RotacionPalma[i] == v_PosicionManoIzquierda;
+                    bool estadoThumb = _leftHand.v_EstadoThumb[i] == v_EstadoThumbIzquierdo;
+                    bool estadoIndex = _leftHand.v_EstadoIndex[i] == v_EstadoIndexIzquierdo;
+                    bool estadoMiddle = _leftHand.v_EstadoMiddle[i] == v_EstadoMiddleIzquierdo;
+                    bool estadoRing = _leftHand.v_EstadoRing[i] == v_EstadoRingIzquierdo;
+                    bool estadoPinky = _leftHand.v_EstadoPinky[i] == v_EstadoPinkyIzquierdo;
+
+                    bool dedosExtendidos = _leftHand.v_DedosExtendidos[i] == v_NumeroDeDedosActivosHIzquierda;
+                   
+
+                    //Posiciones
+
+                    bool[] posBonesIndex = new bool[3];
+                    posBonesIndex[0] = Fuzzy.CompareVector(_leftHand.v_PosBonesIndex0[i] , IndexI[0].transform.position);
+                    posBonesIndex[1] = Fuzzy.CompareVector(_leftHand.v_PosBonesIndex1[i] , IndexI[1].transform.position);
+                    posBonesIndex[2] = Fuzzy.CompareVector(_leftHand.v_PosBonesIndex2[i] , IndexI[2].transform.position);
+
+                    bool[] posBonesMiddle = new bool[3];
+                    posBonesMiddle[0] = Fuzzy.CompareVector(_leftHand.v_PosBonesMiddle0[i] , MiddleI[0].transform.position);
+                    posBonesMiddle[1] = Fuzzy.CompareVector(_leftHand.v_PosBonesMiddle1[i] , MiddleI[1].transform.position);
+                    posBonesMiddle[2] = Fuzzy.CompareVector(_leftHand.v_PosBonesMiddle2[i] , MiddleI[2].transform.position);
+
+                    bool[] posBonesRing = new bool[3];
+                    posBonesRing[0] = Fuzzy.CompareVector(_leftHand.v_PosBonesRing0[i] ,RingI[0].transform.position);
+                    posBonesRing[1] = Fuzzy.CompareVector(_leftHand.v_PosBonesRing1[i] ,RingI[1].transform.position);
+                    posBonesRing[2] = Fuzzy.CompareVector(_leftHand.v_PosBonesRing2[i] ,RingI[2].transform.position);
+
+                    bool[] posBonesPinky = new bool[3];
+                    posBonesPinky[0] = Fuzzy.CompareVector(_leftHand.v_PosBonesPinky0[i] , PinkyI[0].transform.position);
+                    posBonesPinky[1] = Fuzzy.CompareVector(_leftHand.v_PosBonesPinky1[i] , PinkyI[1].transform.position);
+                    posBonesPinky[2] = Fuzzy.CompareVector(_leftHand.v_PosBonesPinky2[i] , PinkyI[2].transform.position);
+
+                    bool[] posBonesThumb = new bool[3];
+                    posBonesThumb[0] = Fuzzy.CompareVector(_leftHand.v_PosBonesThumb0[i] , ThumbI[0].transform.position);
+                    posBonesThumb[1] = Fuzzy.CompareVector(_leftHand.v_PosBonesThumb1[i] , ThumbI[1].transform.position);
+                    posBonesThumb[2] = Fuzzy.CompareVector(_leftHand.v_PosBonesThumb2[i] , ThumbI[2].transform.position);
+
+                    //Rotaciones
+
+                    bool[] rotBonesIndex = new bool[3];
+                    rotBonesIndex[0] = Fuzzy.CompareVector(_leftHand.v_RotBonesIndex0[i] , IndexI[0].transform.rotation.eulerAngles);
+                    rotBonesIndex[1] = Fuzzy.CompareVector(_leftHand.v_RotBonesIndex1[i] , IndexI[1].transform.rotation.eulerAngles);
+                    rotBonesIndex[2] = Fuzzy.CompareVector(_leftHand.v_RotBonesIndex2[i] , IndexI[2].transform.rotation.eulerAngles);
+
+                    bool[] rotBonesMiddle = new bool[3];
+                    rotBonesMiddle[0] = Fuzzy.CompareVector(_leftHand.v_RotBonesMiddle0[i] , MiddleI[0].transform.rotation.eulerAngles);
+                    rotBonesMiddle[1] = Fuzzy.CompareVector(_leftHand.v_RotBonesMiddle1[i] , MiddleI[1].transform.rotation.eulerAngles);
+                    rotBonesMiddle[2] = Fuzzy.CompareVector(_leftHand.v_RotBonesMiddle2[i] , MiddleI[2].transform.rotation.eulerAngles);
+
+                    bool[] rotBonesRing = new bool[3];
+                    rotBonesRing[0] = Fuzzy.CompareVector(_leftHand.v_RotBonesRing0[i] , RingI[0].transform.rotation.eulerAngles);
+                    rotBonesRing[1] = Fuzzy.CompareVector(_leftHand.v_RotBonesRing1[i] , RingI[1].transform.rotation.eulerAngles);
+                    rotBonesRing[2] = Fuzzy.CompareVector(_leftHand.v_RotBonesRing2[i] , RingI[2].transform.rotation.eulerAngles);
+
+                    bool[] rotBonesPinky = new bool[3];
+                    rotBonesPinky[0] = Fuzzy.CompareVector(_leftHand.v_RotBonesPinky0[i] , PinkyI[0].transform.rotation.eulerAngles);
+                    rotBonesPinky[1] = Fuzzy.CompareVector(_leftHand.v_RotBonesPinky1[i] , PinkyI[1].transform.rotation.eulerAngles);
+                    rotBonesPinky[2] = Fuzzy.CompareVector(_leftHand.v_RotBonesPinky2[i] , PinkyI[2].transform.rotation.eulerAngles);
+
+                    bool[] rotBonesThumb = new bool[3];
+                    rotBonesThumb[0] = Fuzzy.CompareVector(_leftHand.v_RotBonesThumb0[i] ,ThumbI[0].transform.rotation.eulerAngles);
+                    rotBonesThumb[1] = Fuzzy.CompareVector(_leftHand.v_RotBonesThumb1[i] ,ThumbI[1].transform.rotation.eulerAngles);
+                    rotBonesThumb[2] = Fuzzy.CompareVector(_leftHand.v_RotBonesThumb2[i] ,ThumbI[2].transform.rotation.eulerAngles);
+
+                    bool posBrazo = Fuzzy.CompareVector(_leftHand.v_PosBrazo[i] , ForI.transform.position);
+                    bool rotBrazo = Fuzzy.CompareVector(_leftHand.v_RotBrazo[i] , ForI.transform.rotation.eulerAngles);
+                                                                                
+                    bool posPalma = Fuzzy.CompareVector(_leftHand.v_PosPalma[i] , PalmI.transform.position);
+                    bool rotPalma = Fuzzy.CompareVector(_leftHand.v_RotPalma[i] , PalmI.transform.rotation.eulerAngles);
+
+                    if (rot_Palma && estadoThumb && estadoIndex && estadoMiddle && estadoRing && estadoPinky)
+                    {
+                        if (posBonesIndex[0] && posBonesIndex[1] && posBonesIndex[2] &&
+                            posBonesMiddle[0] && posBonesMiddle[1] && posBonesMiddle[2] &&
+                            posBonesRing[0] && posBonesRing[1] && posBonesRing[2] &&
+                            posBonesPinky[0] && posBonesPinky[1] && posBonesPinky[2] &&
+                            posBonesThumb[0] && posBonesThumb[1] && posBonesThumb[2] &&
+                            rotBonesIndex[0] && rotBonesIndex[1] && rotBonesIndex[2] &&
+                            rotBonesMiddle[0] && rotBonesMiddle[1] && rotBonesMiddle[2] &&
+                            rotBonesRing[0] && rotBonesRing[1] && rotBonesRing[2] &&
+                            rotBonesPinky[0] && rotBonesPinky[1] && rotBonesPinky[2] &&
+                            rotBonesThumb[0] && rotBonesThumb[1] && rotBonesThumb[2])
+                        {
+                            if(posBrazo && rotBrazo && posPalma && rotPalma)
+                            {
+                                isLeft[i] = true;
+                            }
+                        }
+
+                    }
+                }
+
+                if (v_ManoDerechaActiva && _rightHand.v_ManoActiva)
+                {
+                    bool rot_Palma = _rightHand.v_RotacionPalma[i] == v_PosicionManoDerecha;
+                    bool estadoThumb = _rightHand.v_EstadoThumb[i] == v_EstadoThumbDerecho;
+                    bool estadoIndex = _rightHand.v_EstadoIndex[i] == v_EstadoIndexDerecho;
+                    bool estadoMiddle = _rightHand.v_EstadoMiddle[i] == v_EstadoMiddleDerecho;
+                    bool estadoRing = _rightHand.v_EstadoRing[i] == v_EstadoRingDerecho;
+                    bool estadoPinky = _rightHand.v_EstadoPinky[i] == v_EstadoPinkyDerecho;
+
+                    bool dedosExtendidos = _rightHand.v_DedosExtendidos[i] == v_NumeroDeDedosActivosHDerecha;
+
+
+                    //Posiciones
+
+                    bool[] posBonesIndex = new bool[3];
+                    posBonesIndex[0] = Fuzzy.CompareVector(_rightHand.v_PosBonesIndex0[i] , IndexD[0].transform.position);
+                    posBonesIndex[1] = Fuzzy.CompareVector(_rightHand.v_PosBonesIndex1[i] , IndexD[1].transform.position);
+                    posBonesIndex[2] = Fuzzy.CompareVector(_rightHand.v_PosBonesIndex2[i] , IndexD[2].transform.position);
+
+                    bool[] posBonesMiddle = new bool[3];
+                    posBonesMiddle[0] = Fuzzy.CompareVector(_rightHand.v_PosBonesMiddle0[i] , MiddleD[0].transform.position);
+                    posBonesMiddle[1] = Fuzzy.CompareVector(_rightHand.v_PosBonesMiddle1[i] , MiddleD[1].transform.position);
+                    posBonesMiddle[2] = Fuzzy.CompareVector(_rightHand.v_PosBonesMiddle2[i] , MiddleD[2].transform.position);
+                                                                                                                           
+                    bool[] posBonesRing = new bool[3];
+                    posBonesRing[0] = Fuzzy.CompareVector(_rightHand.v_PosBonesRing0[i] , RingD[0].transform.position);
+                    posBonesRing[1] = Fuzzy.CompareVector(_rightHand.v_PosBonesRing1[i] , RingD[1].transform.position);
+                    posBonesRing[2] = Fuzzy.CompareVector(_rightHand.v_PosBonesRing2[i] , RingD[2].transform.position);
+
+                    bool[] posBonesPinky = new bool[3];
+                    posBonesPinky[0] = Fuzzy.CompareVector(_rightHand.v_PosBonesPinky0[i] , PinkyD[0].transform.position);
+                    posBonesPinky[1] = Fuzzy.CompareVector(_rightHand.v_PosBonesPinky1[i] , PinkyD[1].transform.position);
+                    posBonesPinky[2] = Fuzzy.CompareVector(_rightHand.v_PosBonesPinky2[i] , PinkyD[2].transform.position);
+
+                    bool[] posBonesThumb = new bool[3];
+                    posBonesThumb[0] =  Fuzzy.CompareVector(_rightHand.v_PosBonesThumb0[i]  ,   ThumbD[0].transform.position);
+                    posBonesThumb[1] =  Fuzzy.CompareVector(_rightHand.v_PosBonesThumb1[i]  ,   ThumbD[1].transform.position);
+                    posBonesThumb[2] =  Fuzzy.CompareVector(_rightHand.v_PosBonesThumb2[i]  ,   ThumbD[2].transform.position);
+
+                    //Rotaciones
+
+                    bool[] rotBonesIndex = new bool[3];
+                    rotBonesIndex[0] = Fuzzy.CompareVector(_rightHand.v_RotBonesIndex0[i] , IndexD[0].transform.rotation.eulerAngles);
+                    rotBonesIndex[1] = Fuzzy.CompareVector(_rightHand.v_RotBonesIndex1[i] , IndexD[1].transform.rotation.eulerAngles);
+                    rotBonesIndex[2] = Fuzzy.CompareVector(_rightHand.v_RotBonesIndex2[i] , IndexD[2].transform.rotation.eulerAngles);
+
+                    bool[] rotBonesMiddle = new bool[3];
+                    rotBonesMiddle[0] = Fuzzy.CompareVector(_rightHand.v_RotBonesMiddle0[i] , MiddleD[0].transform.rotation.eulerAngles);
+                    rotBonesMiddle[1] = Fuzzy.CompareVector(_rightHand.v_RotBonesMiddle1[i] , MiddleD[1].transform.rotation.eulerAngles);
+                    rotBonesMiddle[2] = Fuzzy.CompareVector(_rightHand.v_RotBonesMiddle2[i] , MiddleD[2].transform.rotation.eulerAngles);
+
+                    bool[] rotBonesRing = new bool[3];
+                    rotBonesRing[0] = Fuzzy.CompareVector(_rightHand.v_RotBonesRing0[i] , RingD[0].transform.rotation.eulerAngles);
+                    rotBonesRing[1] = Fuzzy.CompareVector(_rightHand.v_RotBonesRing1[i] , RingD[1].transform.rotation.eulerAngles);
+                    rotBonesRing[2] = Fuzzy.CompareVector(_rightHand.v_RotBonesRing2[i] , RingD[2].transform.rotation.eulerAngles);
+
+                    bool[] rotBonesPinky = new bool[3];
+                    rotBonesPinky[0] = Fuzzy.CompareVector(_rightHand.v_RotBonesPinky0[i] , PinkyD[0].transform.rotation.eulerAngles);
+                    rotBonesPinky[1] = Fuzzy.CompareVector(_rightHand.v_RotBonesPinky1[i] , PinkyD[1].transform.rotation.eulerAngles);
+                    rotBonesPinky[2] = Fuzzy.CompareVector(_rightHand.v_RotBonesPinky2[i] , PinkyD[2].transform.rotation.eulerAngles);
+
+                    bool[] rotBonesThumb = new bool[3];
+                    rotBonesThumb[0] = Fuzzy.CompareVector(_rightHand.v_RotBonesThumb0[i] , ThumbD[0].transform.rotation.eulerAngles);
+                    rotBonesThumb[1] = Fuzzy.CompareVector(_rightHand.v_RotBonesThumb1[i] , ThumbD[1].transform.rotation.eulerAngles);
+                    rotBonesThumb[2] = Fuzzy.CompareVector(_rightHand.v_RotBonesThumb2[i] , ThumbD[2].transform.rotation.eulerAngles);
+
+                    bool posBrazo = Fuzzy.CompareVector(_rightHand.v_PosBrazo[i] ,ForD.transform.position);
+                    bool rotBrazo = Fuzzy.CompareVector(_rightHand.v_RotBrazo[i] ,ForD.transform.rotation.eulerAngles);
+
+                    bool posPalma = Fuzzy.CompareVector(_rightHand.v_PosPalma[i] , PalmD.transform.position);
+                    bool rotPalma = Fuzzy.CompareVector(_rightHand.v_RotPalma[i] , PalmD.transform.rotation.eulerAngles);
+
+                    Debug.Log("Palma: " + rot_Palma);
+                    if (rot_Palma && estadoThumb && estadoIndex && estadoMiddle && estadoRing && estadoPinky)
+                    {
+                        isRight[i] = true;
+                        //Debug.Log("Well, so far so good");
+                        //if (posBonesIndex[0] && posBonesIndex[1] && posBonesIndex[2] &&
+                        //    posBonesMiddle[0] && posBonesMiddle[1] && posBonesMiddle[2] &&
+                        //    posBonesRing[0] && posBonesRing[1] && posBonesRing[2] &&
+                        //    posBonesPinky[0] && posBonesPinky[1] && posBonesPinky[2] &&
+                        //    posBonesThumb[0] && posBonesThumb[1] && posBonesThumb[2] &&
+                        //    rotBonesIndex[0] && rotBonesIndex[1] && rotBonesIndex[2] &&
+                        //    rotBonesMiddle[0] && rotBonesMiddle[1] && rotBonesMiddle[2] &&
+                        //    rotBonesRing[0] && rotBonesRing[1] && rotBonesRing[2] &&
+                        //    rotBonesPinky[0] && rotBonesPinky[1] && rotBonesPinky[2] &&
+                        //    rotBonesThumb[0] && rotBonesThumb[1] && rotBonesThumb[2])
+                        //{
+                        //    Debug.Log("I got all pos and rot right!");
+                        //    if (posBrazo && rotBrazo && posPalma && rotPalma)
+                        //    {
+                        //        Debug.Log("This part is tricku");
+                        //        isRight[i] = true;
+                        //    }
+                        //}
+
+                    }
+
+                }
+               
+
+                Debug.Log(">Termino el Tiraje " + i);
+
+                yield return new WaitForSeconds(tiempoTMp);
+            }
+
+            //Do whatever to mark as done
+            Debug.Log("Is right? " + isRight[0]);
+            if((_leftHand.v_ManoActiva && isLeft[0]) || (_rightHand.v_ManoActiva && isRight[0]))
+            {
+                StartCoroutine(WaitToTurnPanelOff(matchFound));
+            }
+
+        }
 
         IEnumerator extendedFingerWatcher()
         {
