@@ -13,11 +13,15 @@ public class SCR_GameManager : SCR_MinigameManager
     [Header("Gameflow")]
     public Button btnNextGesture;
     public Button btnFinishGame;
-    List<string> gesturesToRead = new List<string>();
+    public List<string> gesturesToRead = new List<string>();
     int currentGesutre = 0;
     int numberOfGesturesMade = 0;
     public Text txtCurrentGesture;
     public s_ManagerLoadSign managerLoadSign;
+
+    private bool canLoadNextGesture = true;
+    [Tooltip("This is the time in seconds")]
+    private float timeBetweenGestures = 3.0f;
 
     private void Start()
     {
@@ -53,6 +57,13 @@ public class SCR_GameManager : SCR_MinigameManager
     public override void CheckIfGameWon()
     {
         base.CheckIfGameWon();
+        StartCoroutine(WaitToShowGameOverScreen());
+    }
+
+    IEnumerator WaitToShowGameOverScreen()
+    {
+        yield return new WaitForSeconds(1.5f);
+        minigame.GameOver("fin del juego");
     }
 
     public override void CreateProceduralLevel()
@@ -109,14 +120,31 @@ public class SCR_GameManager : SCR_MinigameManager
         if (gesturesToRead.Count == 0)
             return;
 
-        currentGesutre++;
-
-        if (currentGesutre < gesturesToRead.Count)
+        if(canLoadNextGesture)
         {
-            SetCurrent();
+            currentGesutre++;
+
+            if (currentGesutre < gesturesToRead.Count)
+            {
+                SetCurrent();
+            }
+            else
+                EndGame();
+
+            StartCoroutine(WaitForNextGesture());
         }
+    }
 
+    IEnumerator WaitForNextGesture()
+    {
+        canLoadNextGesture = false;
+        yield return new WaitForSeconds(timeBetweenGestures);
+        canLoadNextGesture = true;
+    }
 
+    public void EndGame()
+    {
+        CheckIfGameWon();
     }
 
     private void ShowNextButton()
@@ -137,7 +165,7 @@ public class SCR_GameManager : SCR_MinigameManager
     }
 
     /// <summary>
-    /// Sets the current geture to be tracked
+    /// Sets the current gesture to be tracked
     /// </summary>
     private void SetCurrent()
     {

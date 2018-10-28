@@ -797,20 +797,26 @@ namespace Leap.Unity
 
                     if (rot_Palma && estadoThumb && estadoIndex && estadoMiddle || estadoRing || estadoPinky)
                     {
-                        if ((posBonesIndex[0]   || posBonesIndex[1]   || posBonesIndex[2])    &&
-                            (posBonesMiddle[0]  || posBonesMiddle[1]  || posBonesMiddle[2])   &&
-                            (posBonesRing[0]    || posBonesRing[1]    || posBonesRing[2])     &&
-                            (posBonesPinky[0]   || posBonesPinky[1]   || posBonesPinky[2]) ||
-                            (posBonesThumb[0]   || posBonesThumb[1]   || posBonesThumb[2])    &&
-                            (rotBonesIndex[0]   || rotBonesIndex[1]   || rotBonesIndex[2])    &&
-                            (rotBonesMiddle[0]  || rotBonesMiddle[1]  || rotBonesMiddle[2]) &&
-                            (rotBonesRing[0]    || rotBonesRing[1]    || rotBonesRing[2]) &&
-                            (rotBonesPinky[0]   || rotBonesPinky[1]   || rotBonesPinky[2]) ||
-                            (rotBonesThumb[0]   || rotBonesThumb[1]   || rotBonesThumb[2]))
+                        if (
+                            (
+                            ((posBonesThumb[0] || posBonesThumb[1] || posBonesThumb[2]) &&
+                            (posBonesIndex[0]   || posBonesIndex[1]   || posBonesIndex[2]) )   &&
+                            ((posBonesMiddle[0]  || posBonesMiddle[1]  || posBonesMiddle[2]) ||
+                            (posBonesRing[0]    || posBonesRing[1]    || posBonesRing[2]) ||
+                            (posBonesPinky[0]   || posBonesPinky[1]   || posBonesPinky[2]) )
+                            )  ||
+                            (
+                            ((rotBonesThumb[0] || rotBonesThumb[1] || rotBonesThumb[2]) &&
+                            (rotBonesIndex[0]   || rotBonesIndex[1]   || rotBonesIndex[2]) )   &&
+                            ((rotBonesMiddle[0]  || rotBonesMiddle[1]  || rotBonesMiddle[2]) ||
+                            (rotBonesRing[0]    || rotBonesRing[1]    || rotBonesRing[2]) ||
+                            (rotBonesPinky[0]   || rotBonesPinky[1]   || rotBonesPinky[2]) )
+                            )
+                           )
                         {
                             Debug.Log("I got all pos and rot right!");
-                            isRight[i] = true;
-                            if (posBrazo && rotBrazo && posPalma && rotPalma)
+                            //isRight[i] = true;
+                            if ((posBrazo || rotBrazo) || (posPalma || rotPalma))
                             {
                                 Debug.Log("This part is tricku");
                                 isRight[i] = true;
@@ -820,10 +826,6 @@ namespace Leap.Unity
                     }
 
                 }
-
-
-                //Debug.Log("Is right? i = " + i + " "+ isRight[i]);
-                //Debug.Log(">Termino el Tiraje " + i);
 
                 yield return new WaitForSeconds(tiempoTMp);
             }

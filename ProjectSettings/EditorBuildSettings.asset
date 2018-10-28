@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/rsofia/Scenes/GameScene.unity
+    guid: 4a088a64821673d4c81388aa0b6001df
+  - enabled: 1
     path: Assets/rsofia/Scenes/MainMenu.unity
     guid: 7820739d8c13acf4ba7bcbd5bce35925
   - enabled: 1
