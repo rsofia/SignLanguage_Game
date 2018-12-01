@@ -616,7 +616,7 @@ namespace Leap.Unity
         {
             float tiempoTMp = _tiempoEntreTirajes / _leftHand.v_NumeroDeTirajes;
             bool[] isLeft = new bool[_leftHand.v_NumeroDeTirajes];
-            bool[] isRight = new bool[_leftHand.v_NumeroDeTirajes];
+            bool[] isRight = new bool[_rightHand.v_NumeroDeTirajes];
             for (int i = 0; i < _leftHand.v_NumeroDeTirajes; i++)
             {
                 //Debug.Log("> Tiraje" + i);
@@ -830,13 +830,33 @@ namespace Leap.Unity
                 yield return new WaitForSeconds(tiempoTMp);
             }
 
-            //Do whatever to mark as done
-            if((_leftHand.v_ManoActiva && isLeft[0]) || (_rightHand.v_ManoActiva && isRight[0]))
+            //Si si coinciden, entonces activar
+           
+
+            if((_leftHand.v_ManoActiva && Comparar(isLeft)) || (_rightHand.v_ManoActiva && Comparar(isRight)))
             {
                 StartCoroutine(WaitToTurnPanelOff(matchFound));
                 FindObjectOfType<SCR_GameManager>().LoadNextGesture();
             }
 
+        }
+
+        private bool Comparar(bool[] manoAComparar, int errorAceptacion = 90)
+        {
+            bool resultado = false;
+            int numAceptado = (errorAceptacion * manoAComparar.Length) / 100;
+            int counter = 0;
+            for(int i = 0; i < manoAComparar.Length; i++)
+            {
+                if (manoAComparar[i] == true)
+                    counter++;
+            }
+
+            
+            if (counter >= numAceptado)
+                resultado = true;
+
+            return resultado;
         }
 
         IEnumerator extendedFingerWatcher()
