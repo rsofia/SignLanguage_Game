@@ -9,7 +9,10 @@ EditorBuildSettings:
     path: Assets/rsofia/Scenes/GameScene.unity
     guid: 4a088a64821673d4c81388aa0b6001df
   - enabled: 1
-    path: Assets/rsofia/Scenes/MainMenu.unity
+    path: Assets/rsofia/Scenes/MainMenu_sinLogin.unity
+    guid: 2286599dcfe31af4d8e9836ec8157145
+  - enabled: 1
+    path: Assets/rsofia/Scenes/MainMenu_conLogin.unity
     guid: 7820739d8c13acf4ba7bcbd5bce35925
   - enabled: 1
     path: Assets/rsofia/Scenes/GameSelection.unity

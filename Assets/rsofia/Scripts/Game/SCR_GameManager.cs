@@ -14,6 +14,7 @@ public class SCR_GameManager : SCR_MinigameManager
     public Button btnNextGesture;
     public Button btnFinishGame;
     public List<string> gesturesToRead = new List<string>();
+    public VideoBehaviour videoBehaviour;
     int currentGesutre = 0;
     int numberOfGesturesMade = 0;
     public Text txtCurrentGesture;
@@ -175,9 +176,18 @@ public class SCR_GameManager : SCR_MinigameManager
             txtCurrentGesture.text = gesturesToRead[currentGesutre].Split('-')[0];
             managerLoadSign.NombreDeArchivo = gesturesToRead[currentGesutre];
             managerLoadSign.ReadFile();
+            //Poner video
+            if (videoBehaviour.AssingVideoIfExists(Application.dataPath + "/Archivos/VIDEOS/" + categoria.ToString() + "/"+ txtCurrentGesture.text))
+            {
+                videoBehaviour.ShowDisplay();
+                videoBehaviour.Play();
+            }
+            else
+                videoBehaviour.HideDisplay();
         }
         ShowNextButton();
     }
+
 
 
 }

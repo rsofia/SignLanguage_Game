@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 8671f0380a5b16e4e84b4f97f4397e44
+timeCreated: 1549723556
+licenseType: Free
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Caffe Lungo DEMO
+  fontNames:
+  - Caffe Lungo DEMO
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -853,7 +853,7 @@ namespace Leap.Unity
             }
 
             
-            if (counter >= numAceptado)
+            if (counter >= numAceptado && counter > 0)
                 resultado = true;
 
             return resultado;
